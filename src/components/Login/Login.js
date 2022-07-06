@@ -36,10 +36,10 @@ const Login = () => {
       <Box
         display="flex"
         flexDirection="column"
-        backgroundColor="#BA6E6E"
+        backgroundColor="#C28787"
         margin="300px"
         borderRadius="6px"
-        padding="20px"
+        padding="15px"
       >
         <form onSubmit={loginHandler}>
           <FormControl isInvalid={authCtx.loginError}>
@@ -48,7 +48,7 @@ const Login = () => {
                 Enter your email and password
               </FormHelperText>
             ) : (
-              <FormErrorMessage color="black">
+              <FormErrorMessage backgroundColor="white">
                 {authCtx.loginError}
               </FormErrorMessage>
             )}
@@ -74,7 +74,9 @@ const Login = () => {
             />
           </FormControl>
           <Center>
-            <Button type="submit">Log In</Button>
+            <Button type="submit" margin="15px">
+              Log In
+            </Button>
           </Center>
         </form>
       </Box>
