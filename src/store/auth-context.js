@@ -5,6 +5,7 @@ import {
   signOut,
   // createUserWithEmailAndPassword,
 } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
 
 const AuthContext = createContext({});
 
@@ -15,12 +16,12 @@ export const AuthContextProvider = (props) => {
     await signInWithEmailAndPassword(auth, email, password)
       .then((userCred) => {
         const currUser = userCred.user;
+        console.log(userCred);
         setTheUser(currUser);
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(`${errorCode} ${errorMessage}`);
+        console.log(errorCode);
       });
   };
 
