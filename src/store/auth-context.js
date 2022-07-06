@@ -5,24 +5,39 @@ import {
   signOut,
   // createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { FirebaseError } from "firebase/app";
 
 const AuthContext = createContext({});
 
 export const AuthContextProvider = (props) => {
   const [theUser, setTheUser] = useState({});
+  const [loginError, setLoginError] = useState();
+  // let myError = "";
+
+  const mapAuthCode = (authCode) => {
+    switch (authCode) {
+      case "auth/user-not-found":
+        return "User does not exist";
+      case "auth/wrong-password":
+        return "Wrong password";
+      case "auth/too-many-requests":
+        return "Too many login attempts, please try again later or reset your password";
+      default:
+        return null;
+    }
+  };
 
   const login = async (email, password) => {
-    await signInWithEmailAndPassword(auth, email, password)
-      .then((userCred) => {
-        const currUser = userCred.user;
-        console.log(userCred);
-        setTheUser(currUser);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        console.log(errorCode);
-      });
+    try {
+      await signInWithEmailAndPassword(auth, email, password).then(
+        (userCred) => {
+          const currUser = userCred.user;
+          console.log(userCred);
+          setTheUser(currUser);
+        }
+      );
+    } catch (error) {
+      setLoginError(mapAuthCode(error.code));
+    }
   };
 
   const logout = async () => {
@@ -37,6 +52,7 @@ export const AuthContextProvider = (props) => {
         user: theUser,
         login: login,
         logout: logout,
+        loginError: loginError,
       }}
     >
       {props.children}

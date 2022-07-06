@@ -14,7 +14,7 @@ import AuthContext from "../../store/auth-context";
 const Login = () => {
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
-  const [loginError, setLoginError] = useState("");
+  // const [loginError, setLoginError] = useState("");
   const authCtx = useContext(AuthContext);
 
   const emailInputChangeHandler = (event) => {
@@ -29,20 +29,21 @@ const Login = () => {
     event.preventDefault();
     try {
       await authCtx?.login(emailInput, passwordInput);
-    } catch (err) {
-      setLoginError("Invalid email or password");
-    }
+    } catch (error) {}
   };
 
   return (
     <Center>
       <Box>
         <form onSubmit={loginHandler}>
-          <FormControl isInvalid={loginError}>
-            {!loginError ? (
-              <FormHelperText>Enter your email</FormHelperText>
+          <FormControl isInvalid={authCtx.loginError}>
+            {!authCtx.loginError ? (
+              <FormHelperText>Enter your email and password</FormHelperText>
             ) : (
-              <FormErrorMessage>{loginError}</FormErrorMessage>
+              <FormErrorMessage>
+                {console.log(authCtx.loginError)}
+                {authCtx.loginError}
+              </FormErrorMessage>
             )}
             <FormLabel htmlFor="email">Email</FormLabel>
             <Input
