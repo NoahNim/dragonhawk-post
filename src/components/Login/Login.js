@@ -14,7 +14,6 @@ import AuthContext from "../../store/auth-context";
 const Login = () => {
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
-  // const [loginError, setLoginError] = useState("");
   const authCtx = useContext(AuthContext);
 
   const emailInputChangeHandler = (event) => {
@@ -34,14 +33,22 @@ const Login = () => {
 
   return (
     <Center>
-      <Box>
+      <Box
+        display="flex"
+        flexDirection="column"
+        backgroundColor="#BA6E6E"
+        margin="300px"
+        borderRadius="6px"
+        padding="20px"
+      >
         <form onSubmit={loginHandler}>
           <FormControl isInvalid={authCtx.loginError}>
             {!authCtx.loginError ? (
-              <FormHelperText>Enter your email and password</FormHelperText>
+              <FormHelperText color="black">
+                Enter your email and password
+              </FormHelperText>
             ) : (
-              <FormErrorMessage>
-                {console.log(authCtx.loginError)}
+              <FormErrorMessage color="black">
                 {authCtx.loginError}
               </FormErrorMessage>
             )}
@@ -65,8 +72,10 @@ const Login = () => {
               value={passwordInput}
               onChange={passwordInputChangeHandler}
             />
-            <Button type="submit">Log In</Button>
           </FormControl>
+          <Center>
+            <Button type="submit">Log In</Button>
+          </Center>
         </form>
       </Box>
     </Center>

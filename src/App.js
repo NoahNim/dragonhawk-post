@@ -3,8 +3,6 @@ import AuthContext from "./store/auth-context";
 import { Box } from "@chakra-ui/react";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./Firebase";
 
 function App() {
   const userCtx = useContext(AuthContext);

@@ -11,7 +11,6 @@ const AuthContext = createContext({});
 export const AuthContextProvider = (props) => {
   const [theUser, setTheUser] = useState({});
   const [loginError, setLoginError] = useState();
-  // let myError = "";
 
   const mapAuthCode = (authCode) => {
     switch (authCode) {
