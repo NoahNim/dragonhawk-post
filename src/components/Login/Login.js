@@ -41,6 +41,9 @@ const Login = () => {
         borderRadius="6px"
         padding="15px"
       >
+        <Center margin="10px" fontWeight="bold" fontSize="22px">
+          <Box>Welcome!</Box>
+        </Center>
         <form onSubmit={loginHandler}>
           <FormControl isInvalid={authCtx.loginError}>
             {!authCtx.loginError ? (
@@ -48,7 +51,7 @@ const Login = () => {
                 Enter your email and password
               </FormHelperText>
             ) : (
-              <FormErrorMessage backgroundColor="white">
+              <FormErrorMessage backgroundColor="white" borderRadius="6px">
                 {authCtx.loginError}
               </FormErrorMessage>
             )}
