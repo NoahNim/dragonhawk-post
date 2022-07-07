@@ -1,8 +1,17 @@
-import logo from "./logo.svg";
-import "./App.css";
+import React, { useContext } from "react";
+import AuthContext from "./store/auth-context";
+import { Box, Center } from "@chakra-ui/react";
+import Login from "./components/Login/Login";
+import Home from "./components/Home/Home";
 
 function App() {
-  return <div className="App"></div>;
+  const userCtx = useContext(AuthContext);
+
+  return (
+    <Center>
+      <Box>{userCtx.user.email ? <Home /> : <Login />}</Box>
+    </Center>
+  );
 }
 
 export default App;
