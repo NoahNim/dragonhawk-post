@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import AuthContext from "../../store/auth-context";
+import SignupPage from "../SignupPage/Signup";
 
 const Login = () => {
   const [emailInput, setEmailInput] = useState("");
@@ -81,6 +82,7 @@ const Login = () => {
               Log In
             </Button>
           </Center>
+          <SignupPage />
         </form>
       </Box>
     </Center>
