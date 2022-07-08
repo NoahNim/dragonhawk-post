@@ -20,6 +20,10 @@ export const AuthContextProvider = (props) => {
         return "Wrong password";
       case "auth/too-many-requests":
         return "Too many login attempts, please try again later or reset your password";
+      case "auth/email-already-in-use":
+        return "Email already in use";
+      case "auth/weak-password":
+        return "Password is too short";
       default:
         return null;
     }
@@ -30,8 +34,8 @@ export const AuthContextProvider = (props) => {
       await signInWithEmailAndPassword(auth, email, password).then(
         (userCred) => {
           const currUser = userCred.user;
-          console.log(userCred);
           setTheUser(currUser);
+          setLoginError();
         }
       );
     } catch (error) {
@@ -49,7 +53,7 @@ export const AuthContextProvider = (props) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      setLoginError(error.code);
+      setLoginError(mapAuthCode(error.code));
     }
   };
 

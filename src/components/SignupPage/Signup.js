@@ -4,16 +4,13 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   FormLabel,
-  Textarea,
   Input,
   Button,
   Box,
   useDisclosure,
-  Form,
   FormControl,
   FormHelperText,
   FormErrorMessage,
@@ -35,6 +32,14 @@ const SignupPage = () => {
     setPasswordInput(event.target.value);
   };
 
+  const signupHandler = async (event) => {
+    event.preventDefault();
+
+    try {
+      await authCtx?.signup(emailInput, passwordInput);
+    } catch (error) {}
+  };
+
   return (
     <Center>
       <Box>
@@ -45,7 +50,7 @@ const SignupPage = () => {
             <ModalHeader>Create New Account</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <form>
+              <form onSubmit={signupHandler}>
                 <FormControl isInvalid={authCtx.loginError}>
                   {!authCtx.loginError ? (
                     <FormHelperText color="black">
