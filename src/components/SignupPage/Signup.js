@@ -37,10 +37,10 @@ const SignupPage = () => {
 
     try {
       await authCtx?.signup(emailInput, passwordInput);
-    } catch (error) {}
-
-    if (!authCtx.signupError) {
-      onClose();
+    } catch (error) {
+      if (!authCtx.signupError) {
+        onClose();
+      }
     }
   };
 
