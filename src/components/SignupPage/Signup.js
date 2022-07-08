@@ -36,12 +36,12 @@ const SignupPage = () => {
     event.preventDefault();
 
     try {
-      await authCtx?.signup(emailInput, passwordInput).then(() => {
-        if (!authCtx.signupError.length) {
-          onClose();
-        }
-      });
+      await authCtx?.signup(emailInput, passwordInput);
     } catch (error) {}
+
+    if (!authCtx.signupError) {
+      onClose();
+    }
   };
 
   return (
@@ -50,54 +50,69 @@ const SignupPage = () => {
         <Button onClick={onOpen}>Or Sign Up</Button>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Create New Account</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <form onSubmit={signupHandler}>
-                <FormControl isInvalid={authCtx.signupError}>
-                  {!authCtx.signupError ? (
-                    <FormHelperText color="black">
-                      Enter the email and password you wish to use
-                    </FormHelperText>
-                  ) : (
-                    <FormErrorMessage
-                      backgroundColor="white"
-                      borderRadius="6px"
-                      id="signup-error"
-                    >
-                      {authCtx.signupError}
-                    </FormErrorMessage>
-                  )}
-                  <FormLabel htmlFor="email">Email</FormLabel>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={emailInput}
-                    width="300px"
-                    borderRadius="6px"
-                    borderColor="black"
-                    onChange={emailInputChangeHandler}
-                  />
-                  <FormLabel htmlFor="paswword">Password</FormLabel>
-                  <Input
-                    id="password"
-                    type="password"
-                    borderRadius="6px"
-                    borderColor="black"
-                    width="300px"
-                    value={passwordInput}
-                    onChange={passwordInputChangeHandler}
-                  />
-                </FormControl>
+          <Center>
+            <ModalContent
+              backgroundColor="#F1BF98"
+              display="flex"
+              flexDirection="column"
+              margin="300px"
+              borderRadius="6px"
+              padding="15px"
+            >
+              <Center>
+                <ModalHeader>Signup</ModalHeader>
+              </Center>
+
+              <ModalCloseButton />
+
+              <ModalBody>
                 <Center>
-                  <Button type="submit" margin="15px">
-                    Sign Up
-                  </Button>
+                  <form onSubmit={signupHandler}>
+                    <FormControl isInvalid={authCtx.signupError}>
+                      {!authCtx.signupError ? (
+                        <FormHelperText color="black">
+                          Enter the email and password you wish to use
+                        </FormHelperText>
+                      ) : (
+                        <FormErrorMessage
+                          backgroundColor="white"
+                          borderRadius="6px"
+                          id="signup-error"
+                        >
+                          {authCtx.signupError}
+                        </FormErrorMessage>
+                      )}
+                      <FormLabel htmlFor="email">Email</FormLabel>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={emailInput}
+                        width="300px"
+                        borderRadius="6px"
+                        borderColor="black"
+                        onChange={emailInputChangeHandler}
+                      />
+                      <FormLabel htmlFor="paswword">Password</FormLabel>
+                      <Input
+                        id="password"
+                        type="password"
+                        borderRadius="6px"
+                        borderColor="black"
+                        width="300px"
+                        value={passwordInput}
+                        onChange={passwordInputChangeHandler}
+                      />
+                    </FormControl>
+                    <Center>
+                      <Button type="submit" margin="15px">
+                        Sign Up
+                      </Button>
+                    </Center>
+                  </form>
                 </Center>
-              </form>
-            </ModalBody>
-          </ModalContent>
+              </ModalBody>
+            </ModalContent>
+          </Center>
         </Modal>
       </Box>
     </Center>

@@ -41,6 +41,7 @@ export const AuthContextProvider = (props) => {
       );
     } catch (error) {
       setLoginError(mapAuthCode(error.code));
+      console.log(signupError);
     }
   };
 
@@ -53,7 +54,6 @@ export const AuthContextProvider = (props) => {
   const signup = async (email, password) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      setSignupError();
     } catch (error) {
       setSignupError(mapAuthCode(error.code));
     }
