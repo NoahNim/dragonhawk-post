@@ -36,7 +36,11 @@ const SignupPage = () => {
     event.preventDefault();
 
     try {
-      await authCtx?.signup(emailInput, passwordInput);
+      await authCtx?.signup(emailInput, passwordInput).then(() => {
+        if (!authCtx.signupError.length) {
+          onClose();
+        }
+      });
     } catch (error) {}
   };
 
@@ -51,8 +55,8 @@ const SignupPage = () => {
             <ModalCloseButton />
             <ModalBody>
               <form onSubmit={signupHandler}>
-                <FormControl isInvalid={authCtx.loginError}>
-                  {!authCtx.loginError ? (
+                <FormControl isInvalid={authCtx.signupError}>
+                  {!authCtx.signupError ? (
                     <FormHelperText color="black">
                       Enter the email and password you wish to use
                     </FormHelperText>
@@ -60,8 +64,9 @@ const SignupPage = () => {
                     <FormErrorMessage
                       backgroundColor="white"
                       borderRadius="6px"
+                      id="signup-error"
                     >
-                      {authCtx.loginError}
+                      {authCtx.signupError}
                     </FormErrorMessage>
                   )}
                   <FormLabel htmlFor="email">Email</FormLabel>

@@ -11,6 +11,7 @@ const AuthContext = createContext({});
 export const AuthContextProvider = (props) => {
   const [theUser, setTheUser] = useState({});
   const [loginError, setLoginError] = useState();
+  const [signupError, setSignupError] = useState();
 
   const mapAuthCode = (authCode) => {
     switch (authCode) {
@@ -52,8 +53,9 @@ export const AuthContextProvider = (props) => {
   const signup = async (email, password) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      setSignupError();
     } catch (error) {
-      setLoginError(mapAuthCode(error.code));
+      setSignupError(mapAuthCode(error.code));
     }
   };
 
@@ -65,6 +67,7 @@ export const AuthContextProvider = (props) => {
         logout: logout,
         loginError: loginError,
         signup: signup,
+        signupError: signupError,
       }}
     >
       {props.children}
