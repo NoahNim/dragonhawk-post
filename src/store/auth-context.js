@@ -3,7 +3,7 @@ import { auth } from "../Firebase";
 import {
   signInWithEmailAndPassword,
   signOut,
-  // createUserWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 
 const AuthContext = createContext({});
@@ -11,6 +11,7 @@ const AuthContext = createContext({});
 export const AuthContextProvider = (props) => {
   const [theUser, setTheUser] = useState({});
   const [loginError, setLoginError] = useState();
+  const [signupError, setSignupError] = useState();
 
   const mapAuthCode = (authCode) => {
     switch (authCode) {
@@ -20,6 +21,10 @@ export const AuthContextProvider = (props) => {
         return "Wrong password";
       case "auth/too-many-requests":
         return "Too many login attempts, please try again later or reset your password";
+      case "auth/email-already-in-use":
+        return "Email already in use";
+      case "auth/weak-password":
+        return "Password is too short";
       default:
         return null;
     }
@@ -30,12 +35,13 @@ export const AuthContextProvider = (props) => {
       await signInWithEmailAndPassword(auth, email, password).then(
         (userCred) => {
           const currUser = userCred.user;
-          console.log(userCred);
           setTheUser(currUser);
+          setLoginError();
         }
       );
     } catch (error) {
       setLoginError(mapAuthCode(error.code));
+      console.log(signupError);
     }
   };
 
@@ -45,6 +51,14 @@ export const AuthContextProvider = (props) => {
     });
   };
 
+  const signup = async (email, password) => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      setSignupError(mapAuthCode(error.code));
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -52,6 +66,8 @@ export const AuthContextProvider = (props) => {
         login: login,
         logout: logout,
         loginError: loginError,
+        signup: signup,
+        signupError: signupError,
       }}
     >
       {props.children}
