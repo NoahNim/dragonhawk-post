@@ -3,7 +3,7 @@ import { auth } from "../Firebase";
 import {
   signInWithEmailAndPassword,
   signOut,
-  // createUserWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 
 const AuthContext = createContext({});
@@ -45,6 +45,14 @@ export const AuthContextProvider = (props) => {
     });
   };
 
+  const signup = async (email, password) => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      setLoginError(error.code);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -52,6 +60,7 @@ export const AuthContextProvider = (props) => {
         login: login,
         logout: logout,
         loginError: loginError,
+        signup: signup,
       }}
     >
       {props.children}
