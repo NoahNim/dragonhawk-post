@@ -31,14 +31,6 @@ export const AuthContextProvider = (props) => {
     }
   };
 
-  // onAuthStateChanged(auth, (user) => {
-  //   if (user) {
-  //     const uid = user.uid;
-  //     setTheUser(uid);
-  //   } else {
-  //   }
-  // });
-
   const login = async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth, email, password).then(
@@ -49,11 +41,6 @@ export const AuthContextProvider = (props) => {
           } else {
           }
         })
-        // (userCred) => {
-        //   const currUser = userCred.user;
-        //   setTheUser(currUser);
-        //   setLoginError();
-        // }
       );
     } catch (error) {
       setLoginError(mapAuthCode(error.code));
@@ -76,11 +63,6 @@ export const AuthContextProvider = (props) => {
           } else {
           }
         })
-        // (userCred) => {
-        //   const currUser = userCred.user;
-        //   setTheUser(currUser);
-        //   setLoginError();
-        // }
       );
     } catch (error) {
       console.log(error);
