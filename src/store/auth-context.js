@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 const AuthContext = createContext({});
@@ -30,32 +31,61 @@ export const AuthContextProvider = (props) => {
     }
   };
 
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //     const uid = user.uid;
+  //     setTheUser(uid);
+  //   } else {
+  //   }
+  // });
+
   const login = async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth, email, password).then(
-        (userCred) => {
-          const currUser = userCred.user;
-          setTheUser(currUser);
-          setLoginError();
-        }
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            const uid = user.uid;
+            setTheUser(uid);
+          } else {
+          }
+        })
+        // (userCred) => {
+        //   const currUser = userCred.user;
+        //   setTheUser(currUser);
+        //   setLoginError();
+        // }
       );
     } catch (error) {
       setLoginError(mapAuthCode(error.code));
-      console.log(signupError);
     }
   };
 
   const logout = async () => {
     return signOut(auth).then(() => {
-      setTheUser({});
+      setTheUser();
     });
   };
 
   const signup = async (email, password) => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, email, password).then(
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            const uid = user.uid;
+            setTheUser(uid);
+          } else {
+          }
+        })
+        // (userCred) => {
+        //   const currUser = userCred.user;
+        //   setTheUser(currUser);
+        //   setLoginError();
+        // }
+      );
     } catch (error) {
+      console.log(error);
       setSignupError(mapAuthCode(error.code));
+      console.log(signupError);
     }
   };
 

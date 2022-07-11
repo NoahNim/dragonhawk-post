@@ -9,7 +9,7 @@ function App() {
 
   return (
     <Center>
-      <Box>{userCtx.user.email ? <Home /> : <Login />}</Box>
+      <Box>{userCtx.user ? <Home /> : <Login />}</Box>
     </Center>
   );
 }
