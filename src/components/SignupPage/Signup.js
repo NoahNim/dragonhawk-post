@@ -16,9 +16,7 @@ import {
   FormErrorMessage,
   Center,
 } from "@chakra-ui/react";
-import { sendEmailVerification } from "firebase/auth";
 import AuthContext from "../../store/auth-context";
-import { auth } from "../../Firebase";
 
 const SignupPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -38,9 +36,7 @@ const SignupPage = () => {
     event.preventDefault();
 
     try {
-      await authCtx
-        ?.signup(emailInput, passwordInput)
-        .then(sendEmailVerification(auth.currentUser));
+      await authCtx?.signup(emailInput, passwordInput);
     } catch (error) {
       if (!authCtx.signupError) {
         onClose();
