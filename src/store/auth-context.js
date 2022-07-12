@@ -18,12 +18,11 @@ export const AuthContextProvider = (props) => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setTheUser(user);
-        console.log(theUser);
       } else {
         setTheUser();
       }
     });
-  }, []);
+  }, [theUser]);
 
   const mapAuthCode = (authCode) => {
     switch (authCode) {
@@ -64,9 +63,8 @@ export const AuthContextProvider = (props) => {
 
   const signup = async (email, password) => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password).then(
-        sendEmailVerification(auth.currentUser)
-      );
+      await createUserWithEmailAndPassword(auth, email, password);
+      await sendEmailVerification(auth.currentUser);
       // .then((userCredential) => {
       //   const user = userCredential.user;
       //   console.log(user);
