@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "../Firebase";
 import {
   signInWithEmailAndPassword,
