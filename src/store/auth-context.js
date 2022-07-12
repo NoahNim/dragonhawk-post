@@ -8,18 +8,27 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 
-const AuthContext = createContext({});
+const AuthContext = React.createContext({
+  loginState: false,
+});
 
 export const AuthContextProvider = (props) => {
   const [theUser, setTheUser] = useState();
   const [loginError, setLoginError] = useState();
   const [signupError, setSignupError] = useState();
+  const [loginState, setLoginState] = useState(false);
+
   useEffect(() => {
+    const storeUserLoggedInInformation = localStorage.getItem("isLoggedIn");
+
+    if (storeUserLoggedInInformation === "1") {
+      setLoginState(true);
+    }
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setTheUser(user);
       } else {
-        setTheUser();
       }
     });
   }, [theUser]);
@@ -43,13 +52,10 @@ export const AuthContextProvider = (props) => {
 
   const login = async (email, password) => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      // .then(
-      //   (userCredential) => {
-      //     const user = userCredential.user;
-      //     setTheUser(user);
-      //   }
-      // );
+      await signInWithEmailAndPassword(auth, email, password).then(() => {
+        localStorage.setItem("isLoggedIn", "1");
+        setLoginState(true);
+      });
     } catch (error) {
       setLoginError(mapAuthCode(error.code));
     }
@@ -57,6 +63,8 @@ export const AuthContextProvider = (props) => {
 
   const logout = async () => {
     return signOut(auth).then(() => {
+      localStorage.removeItem("isLoggedIn");
+      setLoginState(false);
       setTheUser();
     });
   };
@@ -87,6 +95,7 @@ export const AuthContextProvider = (props) => {
         signup: signup,
         signupError: signupError,
         setTheUser: setTheUser,
+        loginState: loginState,
       }}
     >
       {props.children}

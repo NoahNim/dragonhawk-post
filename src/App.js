@@ -4,9 +4,9 @@ import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 
 function App() {
-  const userCtx = useContext(AuthContext);
+  let userCtx = useContext(AuthContext);
 
-  return userCtx?.user ? <Home /> : <Login />;
+  return userCtx.loginState ? <Home /> : <Login />;
 }
 
 export default App;
