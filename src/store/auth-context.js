@@ -72,12 +72,10 @@ export const AuthContextProvider = (props) => {
   const signup = async (email, password) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      await sendEmailVerification(auth.currentUser);
-      // .then((userCredential) => {
-      //   const user = userCredential.user;
-      //   console.log(user);
-      //   setTheUser(user);
-      // });
+      await sendEmailVerification(auth.currentUser).then(() => {
+        localStorage.setItem("isLoggedIn", "1");
+        setLoginState(true);
+      });
     } catch (error) {
       console.log(error);
       setSignupError(mapAuthCode(error.code));
