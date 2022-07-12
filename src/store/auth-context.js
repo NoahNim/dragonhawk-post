@@ -10,7 +10,7 @@ import {
 const AuthContext = createContext({});
 
 export const AuthContextProvider = (props) => {
-  const [theUser, setTheUser] = useState({});
+  const [theUser, setTheUser] = useState();
   const [loginError, setLoginError] = useState();
   const [signupError, setSignupError] = useState();
 
@@ -39,6 +39,7 @@ export const AuthContextProvider = (props) => {
             const uid = user.uid;
             setTheUser(uid);
           } else {
+            setTheUser();
           }
         })
       );
@@ -61,6 +62,7 @@ export const AuthContextProvider = (props) => {
             const uid = user.uid;
             setTheUser(uid);
           } else {
+            setTheUser();
           }
         })
       );
