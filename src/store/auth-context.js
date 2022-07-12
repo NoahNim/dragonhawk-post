@@ -1,17 +1,37 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import { auth } from "../Firebase";
 import {
   signInWithEmailAndPassword,
   signOut,
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  sendEmailVerification,
 } from "firebase/auth";
 
-const AuthContext = createContext({});
+const AuthContext = React.createContext({
+  loginState: false,
+});
 
 export const AuthContextProvider = (props) => {
-  const [theUser, setTheUser] = useState({});
+  const [theUser, setTheUser] = useState();
   const [loginError, setLoginError] = useState();
   const [signupError, setSignupError] = useState();
+  const [loginState, setLoginState] = useState(false);
+
+  useEffect(() => {
+    const storeUserLoggedInInformation = localStorage.getItem("isLoggedIn");
+
+    if (storeUserLoggedInInformation === "1") {
+      setLoginState(true);
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setTheUser(user);
+      } else {
+      }
+    });
+  }, [theUser]);
 
   const mapAuthCode = (authCode) => {
     switch (authCode) {
@@ -32,30 +52,36 @@ export const AuthContextProvider = (props) => {
 
   const login = async (email, password) => {
     try {
-      await signInWithEmailAndPassword(auth, email, password).then(
-        (userCred) => {
-          const currUser = userCred.user;
-          setTheUser(currUser);
-          setLoginError();
-        }
-      );
+      await signInWithEmailAndPassword(auth, email, password).then(() => {
+        localStorage.setItem("isLoggedIn", "1");
+        setLoginState(true);
+      });
     } catch (error) {
       setLoginError(mapAuthCode(error.code));
-      console.log(signupError);
     }
   };
 
   const logout = async () => {
     return signOut(auth).then(() => {
-      setTheUser({});
+      localStorage.removeItem("isLoggedIn");
+      setLoginState(false);
+      setTheUser();
     });
   };
 
   const signup = async (email, password) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      await sendEmailVerification(auth.currentUser);
+      // .then((userCredential) => {
+      //   const user = userCredential.user;
+      //   console.log(user);
+      //   setTheUser(user);
+      // });
     } catch (error) {
+      console.log(error);
       setSignupError(mapAuthCode(error.code));
+      console.log(signupError);
     }
   };
 
@@ -68,6 +94,8 @@ export const AuthContextProvider = (props) => {
         loginError: loginError,
         signup: signup,
         signupError: signupError,
+        setTheUser: setTheUser,
+        loginState: loginState,
       }}
     >
       {props.children}
