@@ -38,7 +38,7 @@ const Login = () => {
         <Box
           display="flex"
           flexDirection="column"
-          backgroundColor="#C28787"
+          backgroundColor="#A47449"
           margin="300px"
           borderRadius="6px"
           padding="15px"
@@ -66,6 +66,7 @@ const Login = () => {
                 borderRadius="6px"
                 borderColor="black"
                 onChange={emailInputChangeHandler}
+                backgroundColor="#D9D0B4"
               />
               <FormLabel htmlFor="paswword">Password</FormLabel>
               <Input
@@ -76,10 +77,11 @@ const Login = () => {
                 width="300px"
                 value={passwordInput}
                 onChange={passwordInputChangeHandler}
+                backgroundColor="#D9D0B4"
               />
             </FormControl>
             <Center>
-              <Button type="submit" margin="15px">
+              <Button type="submit" margin="15px" backgroundColor="#5482F0">
                 Log In
               </Button>
             </Center>
