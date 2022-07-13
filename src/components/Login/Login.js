@@ -66,6 +66,7 @@ const Login = () => {
                 borderRadius="6px"
                 borderColor="black"
                 onChange={emailInputChangeHandler}
+                backgroundColor="#D9D0B4"
               />
               <FormLabel htmlFor="paswword">Password</FormLabel>
               <Input
@@ -76,6 +77,7 @@ const Login = () => {
                 width="300px"
                 value={passwordInput}
                 onChange={passwordInputChangeHandler}
+                backgroundColor="#D9D0B4"
               />
             </FormControl>
             <Center>
