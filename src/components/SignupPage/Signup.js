@@ -47,7 +47,9 @@ const SignupPage = () => {
   return (
     <Center>
       <Box>
-        <Button onClick={onOpen}>Or Sign Up</Button>
+        <Button backgroundColor="#84F0C7" onClick={onOpen}>
+          Or Sign Up
+        </Button>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <Center>
@@ -104,7 +106,11 @@ const SignupPage = () => {
                       />
                     </FormControl>
                     <Center>
-                      <Button type="submit" margin="15px">
+                      <Button
+                        type="submit"
+                        margin="15px"
+                        backgroundColor="#84F0C7"
+                      >
                         Sign Up
                       </Button>
                     </Center>
