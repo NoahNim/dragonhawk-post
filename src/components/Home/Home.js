@@ -1,22 +1,8 @@
-import React, { useContext } from "react";
-import {
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Button,
-} from "@chakra-ui/react";
-import AuthContext from "../../store/auth-context";
+import React from "react";
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import Account from "../Account/Account";
 
 const Home = () => {
-  const authCtx = useContext(AuthContext);
-
-  const logOutHandler = async (event) => {
-    event.preventDefault();
-    authCtx.logout();
-  };
-
   return (
     <Tabs>
       <TabList>
@@ -26,8 +12,7 @@ const Home = () => {
       </TabList>
       <TabPanels>
         <TabPanel>
-          User Account
-          <Button onClick={logOutHandler}>Log Out</Button>
+          <Account />
         </TabPanel>
         <TabPanel>News</TabPanel>
         <TabPanel>Quests</TabPanel>
