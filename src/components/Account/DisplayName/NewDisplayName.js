@@ -10,7 +10,7 @@ import {
   Center,
 } from "@chakra-ui/react";
 
-const DisplayNameWarning = (props) => {
+const NewDisplayName = (props) => {
   const [displayNameInput, setDisplayNameInput] = useState("");
 
   const displayNameInputHandler = (event) => {
@@ -32,7 +32,11 @@ const DisplayNameWarning = (props) => {
       <Box>
         <form onSubmit={displayNameSubmitHandler}>
           <FormControl></FormControl>
-          <FormLabel htmlFor="displayName">Please Set a Display Name</FormLabel>
+          <FormLabel htmlFor="displayName">
+            {props.displayName
+              ? "New Display Name"
+              : "Please Set A Display Name"}
+          </FormLabel>
           <Input
             id="display-name"
             type="text"
@@ -48,4 +52,4 @@ const DisplayNameWarning = (props) => {
   );
 };
 
-export default DisplayNameWarning;
+export default NewDisplayName;
