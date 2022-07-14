@@ -1,5 +1,12 @@
 import React, { useContext } from "react";
-import { Box, Button } from "@chakra-ui/react";
+import {
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Button,
+} from "@chakra-ui/react";
 import AuthContext from "../../store/auth-context";
 
 const Home = () => {
@@ -11,10 +18,21 @@ const Home = () => {
   };
 
   return (
-    <Box>
-      TEST STUFF HERE
-      <Button onClick={logOutHandler}>Log Out</Button>
-    </Box>
+    <Tabs>
+      <TabList>
+        <Tab>Account</Tab>
+        <Tab>News</Tab>
+        <Tab>Quests</Tab>
+      </TabList>
+      <TabPanels>
+        <TabPanel>
+          User Account
+          <Button onClick={logOutHandler}>Log Out</Button>
+        </TabPanel>
+        <TabPanel>News</TabPanel>
+        <TabPanel>Quests</TabPanel>
+      </TabPanels>
+    </Tabs>
   );
 };
 
