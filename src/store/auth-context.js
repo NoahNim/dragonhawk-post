@@ -13,7 +13,6 @@ const AuthContext = React.createContext({
 });
 
 export const AuthContextProvider = (props) => {
-  const [theUser, setTheUser] = useState();
   const [currentUser, setCurrentUser] = useState();
   const [loginError, setLoginError] = useState();
   const [signupError, setSignupError] = useState();
@@ -39,12 +38,11 @@ export const AuthContextProvider = (props) => {
           localStorage.setItem("Display State", "0");
           setDisplayNameState(false);
         }
-        setTheUser(user);
         setCurrentUser(auth.currentUser);
       } else {
       }
     });
-  }, [theUser, displayNameState]);
+  }, [displayNameState, currentUser]);
 
   const mapAuthCode = (authCode) => {
     switch (authCode) {
@@ -78,7 +76,7 @@ export const AuthContextProvider = (props) => {
     return signOut(auth).then(() => {
       localStorage.removeItem("isLoggedIn");
       setLoginState(false);
-      setTheUser();
+      setCurrentUser();
       setDisplayNameState(false);
     });
   };
@@ -100,13 +98,11 @@ export const AuthContextProvider = (props) => {
   return (
     <AuthContext.Provider
       value={{
-        user: theUser,
         login: login,
         logout: logout,
         loginError: loginError,
         signup: signup,
         signupError: signupError,
-        setTheUser: setTheUser,
         loginState: loginState,
         currentUser: currentUser,
         displayNameState: displayNameState,
