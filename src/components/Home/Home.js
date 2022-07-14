@@ -18,6 +18,7 @@ const Home = () => {
   const authCtx = useContext(AuthContext);
   const user = authCtx.currentUser;
   const [displayName, setDisplayName] = useState();
+  const [displayNameState, setDisplayNameState] = useState(false);
 
   const changeDisplayName = async (name) => {
     try {
@@ -25,6 +26,7 @@ const Home = () => {
         displayName: name,
       }).then(() => {
         setDisplayName(name);
+        setDisplayNameState(true);
       });
     } catch (error) {
       console.log(error);
