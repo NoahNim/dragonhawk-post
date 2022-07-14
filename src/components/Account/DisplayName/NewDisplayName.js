@@ -29,24 +29,37 @@ const NewDisplayName = (props) => {
 
   return (
     <Center>
-      <Box>
-        <form onSubmit={displayNameSubmitHandler}>
-          <FormControl></FormControl>
-          <FormLabel htmlFor="displayName">
-            {props.displayName
-              ? "New Display Name"
-              : "Please Set A Display Name"}
-          </FormLabel>
-          <Input
-            id="display-name"
-            type="text"
-            value={displayNameInput}
-            onChange={displayNameInputHandler}
-            width="300px"
-            borderRadius="6px"
-          />
-          <Button type="submit">Submit</Button>
-        </form>
+      <Box
+        display="flex"
+        flexDirection="column"
+        backgroundColor="#A47449"
+        margin="300px"
+        borderRadius="6px"
+        padding="15px"
+      >
+        <Center>
+          <form onSubmit={displayNameSubmitHandler}>
+            <FormControl></FormControl>
+            <FormLabel htmlFor="displayName">
+              {props.displayName
+                ? "New Display Name"
+                : "Please Set A Display Name"}
+            </FormLabel>
+            <Input
+              id="display-name"
+              type="text"
+              value={displayNameInput}
+              onChange={displayNameInputHandler}
+              width="300px"
+              borderRadius="6px"
+              borderColor="black"
+              backgroundColor="#D9D0B4"
+            />
+            <Button type="submit" margin="15px" backgroundColor="#5482F0">
+              Submit
+            </Button>
+          </form>
+        </Center>
       </Box>
     </Center>
   );

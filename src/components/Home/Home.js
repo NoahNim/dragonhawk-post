@@ -70,27 +70,6 @@ const Home = () => {
       </Box>
     </Center>
   );
-  // { user.displayName ? <Tabs>
-  //   <Center>
-  //     <TabList>
-  //       <Tab>Account</Tab>
-  //       <Tab>News</Tab>
-  //       <Tab>Quests</Tab>
-  //     </TabList>
-  //   </Center>
-  //   <TabPanels>
-  //     <TabPanel>
-  //       <Center>
-  //         <Account
-  //           displayName={displayName}
-  //           setDisplayName={setDisplayName}
-  //         />
-  //       </Center>
-  //     </TabPanel>
-  //     <TabPanel>News</TabPanel>
-  //     <TabPanel>Quests</TabPanel>
-  //   </TabPanels>
-  // </Tabs> : <DisplayNameWarning changeDisplayName={changeDisplayName} />
 };
 
 export default Home;

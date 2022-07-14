@@ -24,11 +24,6 @@ const Account = (props) => {
     });
   }, [user, props]);
 
-  const logOutHandler = async (event) => {
-    event.preventDefault();
-    authCtx.logout();
-  };
-
   return (
     <Box>
       <AccountInfo
@@ -36,7 +31,7 @@ const Account = (props) => {
         email={email}
         emailVerified={emailVerified}
       />
-      <Button onClick={logOutHandler}>Log Out</Button>
+      <Button onClick={props.logOutHandler}>Log Out</Button>
     </Box>
   );
 };
