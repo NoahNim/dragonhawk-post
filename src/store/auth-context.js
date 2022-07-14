@@ -14,6 +14,7 @@ const AuthContext = React.createContext({
 
 export const AuthContextProvider = (props) => {
   const [theUser, setTheUser] = useState();
+  const [currentUser, setCurrentUser] = useState();
   const [loginError, setLoginError] = useState();
   const [signupError, setSignupError] = useState();
   const [loginState, setLoginState] = useState(false);
@@ -28,6 +29,7 @@ export const AuthContextProvider = (props) => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setTheUser(user);
+        setCurrentUser(auth.currentUser);
       } else {
       }
     });
@@ -94,7 +96,7 @@ export const AuthContextProvider = (props) => {
         signupError: signupError,
         setTheUser: setTheUser,
         loginState: loginState,
-        currentUser: auth.currentUser,
+        currentUser: currentUser,
       }}
     >
       {props.children}
