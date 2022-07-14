@@ -21,7 +21,9 @@ const NewDisplayName = (props) => {
     event.preventDefault();
 
     // try {
-    await props?.changeDisplayName(displayNameInput);
+    await props?.changeDisplayName(displayNameInput).then(() => {
+      props.onClose();
+    });
     // } catch (error) {}
   };
 

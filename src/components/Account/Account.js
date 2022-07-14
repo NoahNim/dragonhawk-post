@@ -30,6 +30,7 @@ const Account = (props) => {
         displayName={props.displayName}
         email={email}
         emailVerified={emailVerified}
+        changeDisplayName={props.changeDisplayName}
       />
       <Button onClick={props.logOutHandler}>Log Out</Button>
     </Box>
