@@ -11,10 +11,10 @@ const AccountInfo = (props) => {
       </ListItem>
       <ListItem>
         <ListIcon as={StarIcon} />
-        Display Name: {props.displayName}
+        Display Name: {props?.displayName}
       </ListItem>
       <ListItem>
-        <ListIcon as={props.emailVerified ? CheckIcon : WarningIcon} />
+        <ListIcon as={props?.emailVerified ? CheckIcon : WarningIcon} />
         Email Verified
       </ListItem>
     </List>

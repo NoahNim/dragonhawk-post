@@ -1,19 +1,28 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useMemo, useEffect } from "react";
 import { Button, Box } from "@chakra-ui/react";
 import AuthContext from "../../store/auth-context";
 import AccountInfo from "./AccountInfo";
+import { auth } from "../../Firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Account = () => {
   const authCtx = useContext(AuthContext);
   const user = authCtx.currentUser;
-  if (user !== null) {
-    var userName = user.displayName;
-    var userEmail = user.email;
-    var userVerified = user.emailVerified;
-  }
-  const [displayName, setDisplayName] = useState(userName);
-  const [email, setEmail] = useState(userEmail);
-  const [emailVerified, setEmailVerified] = useState(userVerified);
+
+  const [displayName, setDisplayName] = useState();
+  const [email, setEmail] = useState();
+  const [emailVerified, setEmailVerified] = useState();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setDisplayName(user.displayName);
+        setEmail(user.email);
+        setEmailVerified(user.emailVerified);
+      } else {
+      }
+    });
+  }, [user]);
 
   const logOutHandler = async (event) => {
     event.preventDefault();
@@ -22,6 +31,8 @@ const Account = () => {
 
   return (
     <Box>
+      {/* {userInfo ? userInfo : ""} */}
+
       <AccountInfo
         displayName={displayName}
         email={email}
