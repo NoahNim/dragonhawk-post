@@ -18,9 +18,16 @@ export const AuthContextProvider = (props) => {
   const [loginError, setLoginError] = useState();
   const [signupError, setSignupError] = useState();
   const [loginState, setLoginState] = useState(false);
+  const [displayNameState, setDisplayNameState] = useState(false);
 
   useEffect(() => {
     const storeUserLoggedInInformation = localStorage.getItem("isLoggedIn");
+
+    const storedDisplayState = localStorage.getItem("Display State");
+
+    if (storedDisplayState === "1") {
+      setDisplayNameState(true);
+    }
 
     if (storeUserLoggedInInformation === "1") {
       setLoginState(true);
@@ -28,12 +35,16 @@ export const AuthContextProvider = (props) => {
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        if (!user.displayName) {
+          localStorage.setItem("Display State", "0");
+          setDisplayNameState(false);
+        }
         setTheUser(user);
         setCurrentUser(auth.currentUser);
       } else {
       }
     });
-  }, [theUser]);
+  }, [theUser, displayNameState]);
 
   const mapAuthCode = (authCode) => {
     switch (authCode) {
@@ -68,6 +79,7 @@ export const AuthContextProvider = (props) => {
       localStorage.removeItem("isLoggedIn");
       setLoginState(false);
       setTheUser();
+      setDisplayNameState(false);
     });
   };
 
@@ -97,6 +109,8 @@ export const AuthContextProvider = (props) => {
         setTheUser: setTheUser,
         loginState: loginState,
         currentUser: currentUser,
+        displayNameState: displayNameState,
+        setDisplayNameState: setDisplayNameState,
       }}
     >
       {props.children}

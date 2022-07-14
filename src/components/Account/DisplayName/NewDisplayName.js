@@ -20,8 +20,6 @@ const NewDisplayName = (props) => {
   const displayNameSubmitHandler = async (event) => {
     event.preventDefault();
 
-    console.log(displayNameInput);
-
     // try {
     await props?.changeDisplayName(displayNameInput);
     // } catch (error) {}

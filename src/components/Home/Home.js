@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Tabs,
   TabList,
@@ -18,7 +18,6 @@ const Home = () => {
   const authCtx = useContext(AuthContext);
   const user = authCtx.currentUser;
   const [displayName, setDisplayName] = useState();
-  const [displayNameState, setDisplayNameState] = useState(false);
 
   const changeDisplayName = async (name) => {
     try {
@@ -26,7 +25,8 @@ const Home = () => {
         displayName: name,
       }).then(() => {
         setDisplayName(name);
-        setDisplayNameState(true);
+        localStorage.setItem("Display State", "1");
+        authCtx.setDisplayNameState(true);
       });
     } catch (error) {
       console.log(error);
@@ -40,7 +40,7 @@ const Home = () => {
 
   return (
     <Box>
-      {user?.displayName ? (
+      {authCtx.displayNameState ? (
         <Tabs>
           <Center>
             <TabList>
@@ -70,7 +70,9 @@ const Home = () => {
               changeDisplayName={changeDisplayName}
               displayName={displayName}
             />
-            <Button onClick={logOutHandler}>Log Out</Button>
+            <Center>
+              <Button onClick={logOutHandler}>Log Out</Button>
+            </Center>
           </Box>
         </Center>
       )}
