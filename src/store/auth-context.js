@@ -94,6 +94,7 @@ export const AuthContextProvider = (props) => {
         signupError: signupError,
         setTheUser: setTheUser,
         loginState: loginState,
+        currentUser: auth.currentUser,
       }}
     >
       {props.children}
