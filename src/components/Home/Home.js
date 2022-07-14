@@ -36,39 +36,43 @@ const Home = () => {
     authCtx.logout();
   };
 
-  return user?.displayName ? (
-    <Tabs>
-      <Center>
-        <TabList>
-          <Tab>Account</Tab>
-          <Tab>News</Tab>
-          <Tab>Quests</Tab>
-        </TabList>
-      </Center>
-      <TabPanels>
-        <TabPanel>
+  return (
+    <Box>
+      {user?.displayName ? (
+        <Tabs>
           <Center>
-            <Account
-              displayName={displayName}
-              setDisplayName={setDisplayName}
-              logOutHandler={logOutHandler}
-            />
+            <TabList>
+              <Tab>Account</Tab>
+              <Tab>News</Tab>
+              <Tab>Quests</Tab>
+            </TabList>
           </Center>
-        </TabPanel>
-        <TabPanel>News</TabPanel>
-        <TabPanel>Quests</TabPanel>
-      </TabPanels>
-    </Tabs>
-  ) : (
-    <Center>
-      <Box>
-        <NewDisplayName
-          changeDisplayName={changeDisplayName}
-          displayName={displayName}
-        />
-        <Button onClick={logOutHandler}>Log Out</Button>
-      </Box>
-    </Center>
+          <TabPanels>
+            <TabPanel>
+              <Center>
+                <Account
+                  displayName={displayName}
+                  setDisplayName={setDisplayName}
+                  logOutHandler={logOutHandler}
+                />
+              </Center>
+            </TabPanel>
+            <TabPanel>News</TabPanel>
+            <TabPanel>Quests</TabPanel>
+          </TabPanels>
+        </Tabs>
+      ) : (
+        <Center>
+          <Box>
+            <NewDisplayName
+              changeDisplayName={changeDisplayName}
+              displayName={displayName}
+            />
+            <Button onClick={logOutHandler}>Log Out</Button>
+          </Box>
+        </Center>
+      )}
+    </Box>
   );
 };
 
