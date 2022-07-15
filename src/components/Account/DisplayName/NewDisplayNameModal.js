@@ -16,38 +16,45 @@ import NewDisplayName from "./NewDisplayName";
 const NewDisplayNameModal = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box>
-      <Button backgroundColor="#84F0C7" onClick={onOpen} fontSize="8px">
-        Change
-      </Button>
-      <Modal isOpen={isOpen} onClose={onClose} width="10px">
-        <ModalOverlay />
-        <Center>
-          <ModalContent
-            backgroundColor="#F1BF98"
-            display="flex"
-            flexDirection="column"
-            margin="300px"
-            borderRadius="6px"
-            padding="15px"
-          >
-            <Center>
-              <ModalHeader fontSize="10px">New Display Name</ModalHeader>
-            </Center>
+    <Center>
+      <Box>
+        <Button
+          backgroundColor="#84F0C7"
+          onClick={onOpen}
+          fontSize="8px"
+          width="20px"
+          height="20px"
+        >
+          Change
+        </Button>
+        <Modal isOpen={isOpen} onClose={onClose} backgroundColor="#A47449">
+          <ModalOverlay />
+          <Center>
+            <ModalContent
+              backgroundColor="#F1BF98"
+              display="flex"
+              flexDirection="column"
+              borderRadius="6px"
+              width="350px"
+              height="190px"
+            >
+              <Center></Center>
 
-            <ModalCloseButton />
-
-            <ModalBody>
-              <NewDisplayName
-                displayName={props.displayName}
-                changeDisplayName={props.changeDisplayName}
-                onClose={onClose}
-              />
-            </ModalBody>
-          </ModalContent>
-        </Center>
-      </Modal>
-    </Box>
+              <ModalCloseButton />
+              <Center>
+                <ModalBody>
+                  <NewDisplayName
+                    displayName={props.displayName}
+                    changeDisplayName={props.changeDisplayName}
+                    onClose={onClose}
+                  />
+                </ModalBody>
+              </Center>
+            </ModalContent>
+          </Center>
+        </Modal>
+      </Box>
+    </Center>
   );
 };
 

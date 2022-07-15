@@ -33,7 +33,6 @@ const NewDisplayName = (props) => {
         display="flex"
         flexDirection="column"
         backgroundColor="#A47449"
-        margin="300px"
         borderRadius="6px"
         padding="15px"
       >
