@@ -6,13 +6,13 @@ import NewDisplayNameModal from "./DisplayName/NewDisplayNameModal";
 const AccountInfo = (props) => {
   return (
     <Center>
-      <List>
-        <ListItem>
-          <ListIcon as={EmailIcon} />
+      <List backgroundColor="#e3c07b" borderRadius="6px" padding="15px">
+        <ListItem margin="10px">
+          <ListIcon as={EmailIcon} color="#e6dfd1" />
           Email: {props.email}
         </ListItem>
-        <ListItem display="flex" flexDirection="row">
-          <ListIcon as={StarIcon} />
+        <ListItem display="flex" flexDirection="row" margin="10px">
+          <ListIcon as={StarIcon} color="yellow" />
           Display Name: {props?.displayName}
           <Box marginLeft="10px">
             <NewDisplayNameModal
@@ -21,8 +21,11 @@ const AccountInfo = (props) => {
             />
           </Box>
         </ListItem>
-        <ListItem>
-          <ListIcon as={props?.emailVerified ? CheckIcon : WarningIcon} />
+        <ListItem margin="10px">
+          <ListIcon
+            as={props?.emailVerified ? CheckIcon : WarningIcon}
+            color={props?.emailVerified ? "green" : "red"}
+          />
           Email Verified
         </ListItem>
       </List>
