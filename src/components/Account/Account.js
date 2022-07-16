@@ -5,6 +5,7 @@ import AccountInfo from "./AccountInfo";
 import { auth } from "../../Firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import ChangePassword from "./ChangePassword/ChangePassword";
+import DeleteAccount from "./DeleteAccount/DeleteAccount";
 
 const Account = (props) => {
   const authCtx = useContext(AuthContext);
@@ -36,6 +37,7 @@ const Account = (props) => {
       <Box display="flex" flexDirection="row" justifyContent="space-evenly">
         <Button onClick={props.logOutHandler}>Log Out</Button>
         <ChangePassword email={email} />
+        <DeleteAccount email={email} />
       </Box>
     </Box>
   );
