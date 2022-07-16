@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { deleteUser } from "firebase/auth";
+import AuthContext from "../../../store/auth-context";
+import { auth } from "../../../Firebase";
+
 import {
   Modal,
   ModalOverlay,
@@ -22,6 +25,7 @@ const DeleteAccount = (props) => {
   const [verifyEmail, setVerifyEmail] = useState(false);
   const [input, setInput] = useState("");
   const isError = input === "";
+  const user = auth.currentUser;
 
   const handleInputChange = (event) => setInput(event.target.value);
 
@@ -30,6 +34,16 @@ const DeleteAccount = (props) => {
 
     if (input === props.email) {
       setVerifyEmail(true);
+    }
+  };
+
+  const deleteAccountHandler = async () => {
+    try {
+      await deleteUser(user).then(() => {
+        onClose();
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -83,7 +97,8 @@ const DeleteAccount = (props) => {
                     </form>
                   ) : (
                     <Box>
-                      <Button onClick={""}>Yes</Button>
+                      Are you sure you wish to delete your account?
+                      <Button onClick={deleteAccountHandler}>Yes</Button>
                       <Button onClick={onClose}>No</Button>
                     </Box>
                   )}
