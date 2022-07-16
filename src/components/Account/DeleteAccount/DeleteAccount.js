@@ -26,6 +26,7 @@ const DeleteAccount = (props) => {
   const [input, setInput] = useState("");
   const isError = input === "";
   const user = auth.currentUser;
+  const userState = useContext(AuthContext);
 
   const handleInputChange = (event) => setInput(event.target.value);
 
@@ -41,6 +42,7 @@ const DeleteAccount = (props) => {
     try {
       await deleteUser(user).then(() => {
         onClose();
+        userState.logout();
       });
     } catch (error) {
       console.log(error);
