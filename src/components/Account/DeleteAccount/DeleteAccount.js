@@ -64,7 +64,11 @@ const DeleteAccount = (props) => {
         <Modal isOpen={isOpen} onClose={onClose} backgroundColor="#A47449">
           <ModalOverlay />
           <Center>
-            <ModalContent backgroundColor="#F1BF98" borderRadius="6px">
+            <ModalContent
+              backgroundColor="#F1BF98"
+              borderRadius="6px"
+              width="300px"
+            >
               <Center></Center>
 
               <ModalCloseButton />
@@ -95,7 +99,17 @@ const DeleteAccount = (props) => {
                           </FormErrorMessage>
                         )}
                       </FormControl>
-                      <Button type="submit">Verify</Button>
+                      <Center>
+                        <Button
+                          fontSize="8px"
+                          width="50px"
+                          height="20px"
+                          type="submit"
+                          backgroundColor="red"
+                        >
+                          Verify
+                        </Button>
+                      </Center>
                     </form>
                   ) : (
                     <Box>
