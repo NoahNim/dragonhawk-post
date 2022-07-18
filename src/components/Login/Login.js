@@ -38,7 +38,7 @@ const Login = () => {
         <Box
           display="flex"
           flexDirection="column"
-          backgroundColor="#A47449"
+          backgroundColor="#ba8e4a"
           margin="300px"
           borderRadius="6px"
           padding="15px"

@@ -13,13 +13,20 @@ const AuthContext = React.createContext({
 });
 
 export const AuthContextProvider = (props) => {
-  const [theUser, setTheUser] = useState();
+  const [currentUser, setCurrentUser] = useState();
   const [loginError, setLoginError] = useState();
   const [signupError, setSignupError] = useState();
   const [loginState, setLoginState] = useState(false);
+  const [displayNameState, setDisplayNameState] = useState(false);
 
   useEffect(() => {
     const storeUserLoggedInInformation = localStorage.getItem("isLoggedIn");
+
+    const storedDisplayState = localStorage.getItem("Display State");
+
+    if (storedDisplayState === "1") {
+      setDisplayNameState(true);
+    }
 
     if (storeUserLoggedInInformation === "1") {
       setLoginState(true);
@@ -27,11 +34,15 @@ export const AuthContextProvider = (props) => {
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setTheUser(user);
+        if (!user.displayName) {
+          localStorage.setItem("Display State", "0");
+          setDisplayNameState(false);
+        }
+        setCurrentUser(auth.currentUser);
       } else {
       }
     });
-  }, [theUser]);
+  }, [displayNameState, currentUser]);
 
   const mapAuthCode = (authCode) => {
     switch (authCode) {
@@ -65,7 +76,8 @@ export const AuthContextProvider = (props) => {
     return signOut(auth).then(() => {
       localStorage.removeItem("isLoggedIn");
       setLoginState(false);
-      setTheUser();
+      setCurrentUser();
+      setDisplayNameState(false);
     });
   };
 
@@ -86,14 +98,15 @@ export const AuthContextProvider = (props) => {
   return (
     <AuthContext.Provider
       value={{
-        user: theUser,
         login: login,
         logout: logout,
         loginError: loginError,
         signup: signup,
         signupError: signupError,
-        setTheUser: setTheUser,
         loginState: loginState,
+        currentUser: currentUser,
+        displayNameState: displayNameState,
+        setDisplayNameState: setDisplayNameState,
       }}
     >
       {props.children}
