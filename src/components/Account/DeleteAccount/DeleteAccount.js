@@ -23,7 +23,8 @@ import {
 const DeleteAccount = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [verifyEmail, setVerifyEmail] = useState(false);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState();
+  const [deleteError, setDeleteError] = useState(false);
   const isError = input === "";
   const user = auth.currentUser;
   const userState = useContext(AuthContext);
@@ -46,6 +47,7 @@ const DeleteAccount = (props) => {
       });
     } catch (error) {
       console.log(error);
+      setDeleteError(true);
     }
   };
 
@@ -53,7 +55,7 @@ const DeleteAccount = (props) => {
     <Center>
       <Box>
         <Button
-          backgroundColor="#84F0C7"
+          backgroundColor="red"
           onClick={onOpen}
           fontSize="8px"
           width="90px"
@@ -112,10 +114,30 @@ const DeleteAccount = (props) => {
                       </Center>
                     </form>
                   ) : (
-                    <Box>
-                      Are you sure you wish to delete your account?
-                      <Button onClick={deleteAccountHandler}>Yes</Button>
-                      <Button onClick={onClose}>No</Button>
+                    <Box display="flex" flexDirection="column">
+                      {!deleteError
+                        ? "Are you sure you wish to delete your account?"
+                        : "Please logout and then login again, then delete account"}
+                      <Center>
+                        <Button
+                          fontSize="8px"
+                          width="50px"
+                          height="20px"
+                          backgroundColor="red"
+                          onClick={deleteAccountHandler}
+                        >
+                          Yes
+                        </Button>
+                        <Button
+                          fontSize="8px"
+                          width="50px"
+                          height="20px"
+                          backgroundColor="blue"
+                          onClick={onClose}
+                        >
+                          No
+                        </Button>
+                      </Center>
                     </Box>
                   )}
                 </ModalBody>
