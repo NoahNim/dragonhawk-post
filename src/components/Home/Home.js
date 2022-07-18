@@ -31,7 +31,7 @@ const Home = () => {
         localStorage.setItem("Display State", "1");
         authCtx.setDisplayNameState(true);
         updateDoc(userRef, {
-          name: displayName,
+          name: user.displayName,
         });
       });
     } catch (error) {
