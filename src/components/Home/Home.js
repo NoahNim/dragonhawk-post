@@ -9,9 +9,11 @@ import {
   Box,
   Button,
 } from "@chakra-ui/react";
+import { doc, updateDoc } from "firebase/firestore/lite";
+import { db } from "../../Firebase";
+import AuthContext from "../../store/auth-context";
 import { updateProfile } from "firebase/auth";
 import Account from "../Account/Account";
-import AuthContext from "../../store/auth-context";
 import NewDisplayName from "../Account/DisplayName/NewDisplayName";
 
 const Home = () => {
@@ -20,6 +22,7 @@ const Home = () => {
   const [displayName, setDisplayName] = useState();
 
   const changeDisplayName = async (name) => {
+    const userRef = doc(db, "users", user.uid);
     try {
       await updateProfile(user, {
         displayName: name,
@@ -27,6 +30,9 @@ const Home = () => {
         setDisplayName(name);
         localStorage.setItem("Display State", "1");
         authCtx.setDisplayNameState(true);
+        updateDoc(userRef, {
+          name: displayName,
+        });
       });
     } catch (error) {
       console.log(error);

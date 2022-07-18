@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   FormControl,
   FormLabel,
@@ -18,11 +18,11 @@ const NewDisplayName = (props) => {
   const displayNameSubmitHandler = async (event) => {
     event.preventDefault();
 
-    // try {
-    await props?.changeDisplayName(displayNameInput).then(() => {
-      props.onClose();
-    });
-    // } catch (error) {}
+    try {
+      await props?.changeDisplayName(displayNameInput).then(() => {
+        props.onClose();
+      });
+    } catch (error) {}
   };
 
   return (
