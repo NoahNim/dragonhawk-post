@@ -1,6 +1,14 @@
 import React, { createContext } from "react";
 import { db } from "../Firebase";
-import { doc, setDoc, Timestamp } from "firebase/firestore/lite";
+import {
+  doc,
+  setDoc,
+  Timestamp,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore/lite";
 
 const FirestoreContext = createContext({});
 
@@ -20,6 +28,19 @@ export const FirestoreContextProvider = (props) => {
     }
   };
 
+  const getNewsFromDB = async () => {
+    const userRef = collection(db, "users");
+    const users = await getDocs(userRef);
+
+    users.forEach(async (user) => {
+      let userCollectionRef = collection(db, `users/${user.id}/news`);
+      const newsDoc = await getDocs(userCollectionRef);
+      newsDoc.forEach((item) => {
+        console.log(item.data());
+      });
+    });
+  };
+
   const addNewstoDB = async (userId, newsId, userName, headline, content) => {
     console.log(userId, newsId, headline, content);
 
@@ -32,6 +53,7 @@ export const FirestoreContextProvider = (props) => {
           userName: userName,
           headline: headline,
           content: content,
+          created_at: Timestamp.fromDate(new Date()),
         }
       );
     } catch (error) {
@@ -44,6 +66,7 @@ export const FirestoreContextProvider = (props) => {
       value={{
         addUserToDB: addUserToDB,
         addNewstoDB: addNewstoDB,
+        getNewsFromDB: getNewsFromDB,
       }}
     >
       {props.children}

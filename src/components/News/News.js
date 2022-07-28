@@ -8,8 +8,7 @@ const News = (props) => {
   // The news is a bulletin board. Each news items will be a modal that opens up as an obverlay on the users screen.
   const fireCtx = useContext(FirestoreContext);
 
-  // console.log(props.user.displayName);
-  // console.log(props.user.uid);
+  fireCtx.getNewsFromDB();
 
   const createNewsItem = async (headline, content) => {
     const newsId = Math.floor(Math.random() * 9999999999999999);
