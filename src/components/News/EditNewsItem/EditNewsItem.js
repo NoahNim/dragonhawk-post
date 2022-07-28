@@ -10,9 +10,9 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
-import NewsItemForm from "./NewsItemForm/NewsItemForm";
+import EditNewsForm from "./EditNewsForm/EditNewsForm";
 
-const NewNewsItem = (props) => {
+const EditNewsItem = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -43,7 +43,7 @@ const NewNewsItem = (props) => {
               <ModalCloseButton />
               <Center>
                 <ModalBody>
-                  <NewsItemForm />
+                  <EditNewsForm />
                 </ModalBody>
               </Center>
             </ModalContent>
@@ -54,4 +54,4 @@ const NewNewsItem = (props) => {
   );
 };
 
-export default NewNewsItem;
+export default EditNewsItem;
