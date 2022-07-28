@@ -68,7 +68,7 @@ const Home = () => {
               </Center>
             </TabPanel>
             <TabPanel>
-              <News />
+              <News user={user} />
             </TabPanel>
             <TabPanel>Quests</TabPanel>
           </TabPanels>

@@ -24,13 +24,16 @@ export const FirestoreContextProvider = (props) => {
     console.log(userId, newsId, headline, content);
 
     try {
-      await setDoc(doc(db, "users", userId, "news", newsId), {
-        userId: userId,
-        newsId: newsId,
-        userName: userName,
-        headline: headline,
-        content: content,
-      });
+      await setDoc(
+        doc(db, "users", userId.toString(), "news", newsId.toString()),
+        {
+          userId: userId,
+          newsId: newsId,
+          userName: userName,
+          headline: headline,
+          content: content,
+        }
+      );
     } catch (error) {
       console.log(error);
     }

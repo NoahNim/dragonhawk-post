@@ -43,7 +43,7 @@ const NewNewsItem = (props) => {
               <ModalCloseButton />
               <Center>
                 <ModalBody>
-                  <NewsItemForm />
+                  <NewsItemForm createNewsItem={props.createNewsItem} />
                 </ModalBody>
               </Center>
             </ModalContent>
