@@ -20,10 +20,27 @@ export const FirestoreContextProvider = (props) => {
     }
   };
 
+  const addNewstoDB = async (userId, newsId, userName, headline, content) => {
+    console.log(userId, newsId, headline, content);
+
+    try {
+      await setDoc(doc(db, "users", userId, "news", newsId), {
+        userId: userId,
+        newsId: newsId,
+        userName: userName,
+        headline: headline,
+        content: content,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <FirestoreContext.Provider
       value={{
         addUserToDB: addUserToDB,
+        addNewstoDB: addNewstoDB,
       }}
     >
       {props.children}

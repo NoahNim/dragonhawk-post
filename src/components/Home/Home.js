@@ -15,6 +15,7 @@ import AuthContext from "../../store/auth-context";
 import { updateProfile } from "firebase/auth";
 import Account from "../Account/Account";
 import NewDisplayName from "../Account/DisplayName/NewDisplayName";
+import News from "../News/News";
 
 const Home = () => {
   const authCtx = useContext(AuthContext);
@@ -66,7 +67,9 @@ const Home = () => {
                 />
               </Center>
             </TabPanel>
-            <TabPanel>News</TabPanel>
+            <TabPanel>
+              <News />
+            </TabPanel>
             <TabPanel>Quests</TabPanel>
           </TabPanels>
         </Tabs>
