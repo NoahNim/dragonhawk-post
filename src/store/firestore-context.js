@@ -31,15 +31,23 @@ export const FirestoreContextProvider = (props) => {
           let userCollectionRef = collection(db, `users/${user.id}/news`);
           const newsDoc = await getDocs(userCollectionRef);
 
-          newsDoc.forEach((item) => {
+          newsDoc.forEach(async (item) => {
+            console.log(item);
+            const name = await item.name;
+            const email = await item.email;
+            const created_at = await item.created_at;
+
             if (!(item.id in theNews)) {
-              theNews[item.id] = item;
+              theNews[item.id] = {
+                id: item.id,
+                email: email,
+                name: name,
+                created_at: created_at,
+              };
             }
           });
-          // console.log(theNews);
-          setNewsItemData(theNews);
-          console.log(newsState);
         });
+        console.log(theNews);
       }
     },
     [setNewsItemData]
