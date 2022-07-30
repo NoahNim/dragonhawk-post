@@ -25,7 +25,7 @@ const NewsItemForm = (props) => {
     event.preventDefault();
 
     try {
-      props.createNewsItem(headlineInput, contentInput);
+      props.createNewsItem(headlineInput, contentInput).then(props.onClose());
     } catch (error) {
       console.log(error);
     }

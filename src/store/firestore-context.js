@@ -1,18 +1,49 @@
-import React, { createContext } from "react";
+import React, {
+  createContext,
+  useState,
+  useCallback,
+  useEffect,
+  useMemo,
+} from "react";
 import { db } from "../Firebase";
 import {
   doc,
   setDoc,
   Timestamp,
   collection,
-  query,
-  where,
   getDocs,
 } from "firebase/firestore/lite";
 
 const FirestoreContext = createContext({});
 
 export const FirestoreContextProvider = (props) => {
+  let [newsItemData, setNewsItemData] = useState();
+  // const [newsState, setNewsState] = useState();
+  const theNews = {};
+
+  const newsState = useMemo(
+    async (users) => {
+      const userRef = collection(db, "users");
+      users = await getDocs(userRef);
+
+      if (users) {
+        users.forEach(async (user) => {
+          let userCollectionRef = collection(db, `users/${user.id}/news`);
+          const newsDoc = await getDocs(userCollectionRef);
+
+          newsDoc.forEach((item) => {
+            if (!(item.id in theNews)) {
+              theNews[item.id] = item;
+            }
+          });
+        });
+      }
+      // console.log(theNews);
+      // await setNewsItemData(theNews);
+    },
+    [theNews]
+  );
+
   const addUserToDB = async (id, name, email) => {
     console.log(id, name, email);
 
@@ -28,18 +59,22 @@ export const FirestoreContextProvider = (props) => {
     }
   };
 
-  const getNewsFromDB = async () => {
-    const userRef = collection(db, "users");
-    const users = await getDocs(userRef);
+  // const getNewsFromDB = useCallback(async () => {
+  //   const userRef = collection(db, "users");
+  //   const users = await getDocs(userRef);
 
-    users.forEach(async (user) => {
-      let userCollectionRef = collection(db, `users/${user.id}/news`);
-      const newsDoc = await getDocs(userCollectionRef);
-      newsDoc.forEach((item) => {
-        console.log(item.data());
-      });
-    });
-  };
+  //   users.forEach(async (user) => {
+  //     let userCollectionRef = collection(db, `users/${user.id}/news`);
+  //     const newsDoc = await getDocs(userCollectionRef);
+
+  //     newsDoc.forEach((item) => {
+  //       if (!(item.id in itemData)) {
+  //         itemData[item.id] = item.data();
+  //       }
+  //     });
+  //   });
+  //   setNewsState(itemData);
+  // }, [itemData]);
 
   const addNewstoDB = async (userId, newsId, userName, headline, content) => {
     console.log(userId, newsId, headline, content);
@@ -61,12 +96,22 @@ export const FirestoreContextProvider = (props) => {
     }
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      setNewsItemData(theNews);
+    }, 2000);
+  }, [setNewsItemData, theNews]);
+
+  // console.log(newsItemData);
+
   return (
     <FirestoreContext.Provider
       value={{
         addUserToDB: addUserToDB,
         addNewstoDB: addNewstoDB,
-        getNewsFromDB: getNewsFromDB,
+        // getNewsFromDB: getNewsFromDB,
+        newsState: newsState,
+        newsItemData: newsItemData,
       }}
     >
       {props.children}
