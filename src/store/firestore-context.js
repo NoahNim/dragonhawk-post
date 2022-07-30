@@ -19,12 +19,12 @@ const FirestoreContext = createContext({});
 export const FirestoreContextProvider = (props) => {
   let [newsItemData, setNewsItemData] = useState();
   // const [newsState, setNewsState] = useState();
-  const theNews = {};
 
   const newsState = useMemo(
     async (users) => {
       const userRef = collection(db, "users");
       users = await getDocs(userRef);
+      const theNews = {};
 
       if (users) {
         users.forEach(async (user) => {
@@ -36,12 +36,13 @@ export const FirestoreContextProvider = (props) => {
               theNews[item.id] = item;
             }
           });
+          // console.log(theNews);
+          setNewsItemData(theNews);
+          console.log(newsState);
         });
       }
-      // console.log(theNews);
-      // await setNewsItemData(theNews);
     },
-    [theNews]
+    [setNewsItemData]
   );
 
   const addUserToDB = async (id, name, email) => {
@@ -96,11 +97,11 @@ export const FirestoreContextProvider = (props) => {
     }
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      setNewsItemData(theNews);
-    }, 2000);
-  }, [setNewsItemData, theNews]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     console.log(newsState);
+  //   }, 5000);
+  // }, [newsState]);
 
   // console.log(newsItemData);
 
