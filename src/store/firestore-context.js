@@ -24,7 +24,7 @@ export const FirestoreContextProvider = (props) => {
     async (users) => {
       const userRef = collection(db, "users");
       users = await getDocs(userRef);
-      const theNews = {};
+      // const theNews = {};
 
       if (users) {
         users.forEach(async (user) => {
@@ -32,22 +32,20 @@ export const FirestoreContextProvider = (props) => {
           const newsDoc = await getDocs(userCollectionRef);
 
           newsDoc.forEach(async (item) => {
-            console.log(item);
-            const name = await item.name;
-            const email = await item.email;
-            const created_at = await item.created_at;
+            setNewsItemData(item);
 
-            if (!(item.id in theNews)) {
-              theNews[item.id] = {
-                id: item.id,
-                email: email,
-                name: name,
-                created_at: created_at,
-              };
-            }
+            // if (!(item.id in theNews)) {
+            //   theNews[item.id] = {
+            //     id: item.id,
+            //     userId: item.userId,
+            //     headline: item.headline,
+            //     content: item.content,
+            //     userName: item.userName,
+            //   };
+            // }
           });
         });
-        console.log(theNews);
+        // console.log(newsItemData);
       }
     },
     [setNewsItemData]
@@ -107,11 +105,11 @@ export const FirestoreContextProvider = (props) => {
 
   // useEffect(() => {
   //   setTimeout(() => {
-  //     console.log(newsState);
+  //     console.log(newsItemData);
   //   }, 5000);
-  // }, [newsState]);
+  // }, [newsItemData]);
 
-  // console.log(newsItemData);
+  console.log(newsItemData);
 
   return (
     <FirestoreContext.Provider
