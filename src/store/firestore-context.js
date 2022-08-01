@@ -1,7 +1,7 @@
 import React, {
   createContext,
   useState,
-  useCallback,
+  useRef,
   useEffect,
   useMemo,
 } from "react";
@@ -18,57 +18,63 @@ const FirestoreContext = createContext({});
 
 export const FirestoreContextProvider = (props) => {
   let [newsItemData, setNewsItemData] = useState();
-  // const [newsState, setNewsState] = useState();
+  let [usersState, setUsersState] = useState();
 
-  const newsState = useMemo(
-    async (users) => {
-      const userRef = collection(db, "users");
-      users = await getDocs(userRef);
+  // const newsState = useMemo(
+  //   async (users) => {
+  //     const userRef = collection(db, "users");
+  //     users = await getDocs(userRef);
+  //     let userDBState = {};
+  //     let userData = [];
 
-      // db.collection("app")
-      //   .document("users")
-      //   .collection(uid)
-      //   .document("notifications");
+  // db.collection("app")
+  //   .document("users")
+  //   .collection(uid)
+  //   .document("notifications");
 
-      if (users) {
-        users.forEach(async (user) => {
-          let userCollectionRef = collection(db, `users`);
-          const usersDoc = await getDocs(userCollectionRef);
-          let currUserId = {};
-          usersDoc.forEach((user) => {
-            if (!(user.id in currUserId)) {
-              currUserId[user.id] = user.data();
-            }
-          });
+  // if (users) {
+  //   // users.forEach(async (user) => {
+  //   let userCollectionRef = collection(db, `users`);
+  //   const usersDoc = await getDocs(userCollectionRef);
 
-          console.log(currUserId);
+  //   usersDoc.forEach((user) => userData.push(user.data()));
 
-          let newsCollectionRef = collection(db, `users/${currUserId}/news`);
-          const newsDoc = await getDocs(newsCollectionRef);
+  //   userData.forEach((user) => {
+  //     if (!(user.id in userDBState)) {
+  //       userDBState[user.id] = user;
+  //     }
+  //   });
 
-          newsDoc.forEach(async (item) => {
-            console.log(item.id, " => ", item.data());
-            console.log(item.id);
-            // let newsCollectionRef = collection(
-            //   db,
-            //   `users/${user.id}/truenews/news/${item.id}/${item.id}`
-            // );
-            // setNewsItemData(newsCollectionRef);
-            // // if (!(item.id in theNews)) {
-            //   theNews[item.id] = {
-            //     id: item.id,
-            //     userId: item.userId,
-            //     headline: item.headline,
-            //     content: item.content,
-            //     userName: item.userName,
-            //   };
-            // }
-          });
-        });
-      }
-    },
-    [setNewsItemData]
-  );
+  //   console.log(userData);
+  //   console.log(userDBState);
+
+  // let newsCollectionRef = collection(db, `users/news`);
+  // const newsDoc = await getDocs(newsCollectionRef);
+
+  // newsDoc.forEach(async (item) => {
+  //   console.log(item.id, " => ", item.data());
+  //   console.log(item.id);
+  // let newsCollectionRef = collection(
+  //   db,
+  //   `users/${user.id}/truenews/news/${item.id}/${item.id}`
+  // );
+  // setNewsItemData(newsCollectionRef);
+  // // if (!(item.id in theNews)) {
+  //   theNews[item.id] = {
+  //     id: item.id,
+  //     userId: item.userId,
+  //     headline: item.headline,
+  //     content: item.content,
+  //     userName: item.userName,
+  //   };
+  // }
+  // });
+  // });
+  // }
+  //     console.log(userDBState.length);
+  //   },
+  //   [setNewsItemData]
+  // );
 
   const addUserToDB = async (id, name, email) => {
     console.log(id, name, email);
@@ -85,22 +91,65 @@ export const FirestoreContextProvider = (props) => {
     }
   };
 
-  // const getNewsFromDB = useCallback(async () => {
-  //   const userRef = collection(db, "users");
-  //   const users = await getDocs(userRef);
+  async function getUserDataFromDB() {
+    let executed = false;
+    if (!executed) {
+      const userRef = collection(db, "users");
+      const users = await getDocs(userRef);
+      let userDBState = {};
+      let userData = [];
 
-  //   users.forEach(async (user) => {
-  //     let userCollectionRef = collection(db, `users/${user.id}/news`);
-  //     const newsDoc = await getDocs(userCollectionRef);
+      // db.collection("app")
+      //   .document("users")
+      //   .collection(uid)
+      //   .document("notifications");
 
-  //     newsDoc.forEach((item) => {
-  //       if (!(item.id in itemData)) {
-  //         itemData[item.id] = item.data();
-  //       }
-  //     });
-  //   });
-  //   setNewsState(itemData);
-  // }, [itemData]);
+      if (users) {
+        // users.forEach(async (user) => {
+        let userCollectionRef = collection(db, `users`);
+        const usersDoc = await getDocs(userCollectionRef);
+
+        usersDoc.forEach((user) => userData.push(user.data()));
+
+        await userData.forEach((user) => {
+          if (!(user.id in userDBState)) {
+            userDBState[user.id] = user;
+          }
+        });
+
+        await setUsersState(userDBState).then(() => {
+          console.log(userData);
+          console.log(userDBState);
+          executed = true;
+        });
+
+        // let newsCollectionRef = collection(db, `users/news`);
+        // const newsDoc = await getDocs(newsCollectionRef);
+
+        // newsDoc.forEach(async (item) => {
+        //   console.log(item.id, " => ", item.data());
+        //   console.log(item.id);
+        // let newsCollectionRef = collection(
+        //   db,
+        //   `users/${user.id}/truenews/news/${item.id}/${item.id}`
+        // );
+        // setNewsItemData(newsCollectionRef);
+        // // if (!(item.id in theNews)) {
+        //   theNews[item.id] = {
+        //     id: item.id,
+        //     userId: item.userId,
+        //     headline: item.headline,
+        //     content: item.content,
+        //     userName: item.userName,
+        //   };
+        // }
+        // });
+        // });
+      }
+
+      console.log(userDBState.length);
+    }
+  }
 
   const addNewstoDB = async (userId, newsId, userName, headline, content) => {
     console.log(userId, newsId, headline, content);
@@ -122,21 +171,19 @@ export const FirestoreContextProvider = (props) => {
     }
   };
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     console.log(newsItemData);
-  //   }, 5000);
-  // }, [newsItemData]);
-
-  // console.log(newsItemData?.id);
+  useEffect(() => {
+    setTimeout(() => {
+      console.log(console.log(usersState));
+    }, 5000);
+  }, [usersState]);
 
   return (
     <FirestoreContext.Provider
       value={{
         addUserToDB: addUserToDB,
         addNewstoDB: addNewstoDB,
-        // getNewsFromDB: getNewsFromDB,
-        newsState,
+        getUserDataFRomDB: getUserDataFromDB,
+        // newsState,
         newsItemData: newsItemData,
       }}
     >
