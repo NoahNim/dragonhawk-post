@@ -24,17 +24,37 @@ export const FirestoreContextProvider = (props) => {
     async (users) => {
       const userRef = collection(db, "users");
       users = await getDocs(userRef);
-      // const theNews = {};
+
+      // db.collection("app")
+      //   .document("users")
+      //   .collection(uid)
+      //   .document("notifications");
 
       if (users) {
         users.forEach(async (user) => {
-          let userCollectionRef = collection(db, `users/${user.id}/news`);
-          const newsDoc = await getDocs(userCollectionRef);
+          let userCollectionRef = collection(db, `users`);
+          const usersDoc = await getDocs(userCollectionRef);
+          let currUserId = {};
+          usersDoc.forEach((user) => {
+            if (!(user.id in currUserId)) {
+              currUserId[user.id] = user.data();
+            }
+          });
+
+          console.log(currUserId);
+
+          let newsCollectionRef = collection(db, `users/${currUserId}/news`);
+          const newsDoc = await getDocs(newsCollectionRef);
 
           newsDoc.forEach(async (item) => {
-            setNewsItemData(item);
-
-            // if (!(item.id in theNews)) {
+            console.log(item.id, " => ", item.data());
+            console.log(item.id);
+            // let newsCollectionRef = collection(
+            //   db,
+            //   `users/${user.id}/truenews/news/${item.id}/${item.id}`
+            // );
+            // setNewsItemData(newsCollectionRef);
+            // // if (!(item.id in theNews)) {
             //   theNews[item.id] = {
             //     id: item.id,
             //     userId: item.userId,
@@ -45,7 +65,6 @@ export const FirestoreContextProvider = (props) => {
             // }
           });
         });
-        // console.log(newsItemData);
       }
     },
     [setNewsItemData]
@@ -88,7 +107,7 @@ export const FirestoreContextProvider = (props) => {
 
     try {
       await setDoc(
-        doc(db, "users", userId.toString(), "news", newsId.toString()),
+        doc(db, "users", userId.toString(), `/news/`, newsId.toString()),
         {
           userId: userId,
           newsId: newsId,
@@ -109,7 +128,7 @@ export const FirestoreContextProvider = (props) => {
   //   }, 5000);
   // }, [newsItemData]);
 
-  console.log(newsItemData);
+  // console.log(newsItemData?.id);
 
   return (
     <FirestoreContext.Provider
@@ -117,7 +136,7 @@ export const FirestoreContextProvider = (props) => {
         addUserToDB: addUserToDB,
         addNewstoDB: addNewstoDB,
         // getNewsFromDB: getNewsFromDB,
-        newsState: newsState,
+        newsState,
         newsItemData: newsItemData,
       }}
     >
