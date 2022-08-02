@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Tabs,
   TabList,
@@ -9,7 +9,7 @@ import {
   Box,
   Button,
 } from "@chakra-ui/react";
-import { doc, updateDoc } from "firebase/firestore/lite";
+import { doc, updateDoc, collection, getDocs } from "firebase/firestore/lite";
 import { db } from "../../Firebase";
 import AuthContext from "../../store/auth-context";
 import { updateProfile } from "firebase/auth";
@@ -21,6 +21,25 @@ const Home = () => {
   const authCtx = useContext(AuthContext);
   const user = authCtx.currentUser;
   const [displayName, setDisplayName] = useState();
+  const [newsState, setNewsState] = useState();
+
+  useEffect(() => {
+    async function fetchData() {
+      const users = await getDocs(collection(db, "users"));
+
+      if (users) {
+        users.forEach(async (user) => {
+          let newsDoc = await getDocs(collection(db, `users/${user.id}/news`));
+
+          newsDoc.forEach(async (item) => {
+            console.log(item.data());
+          });
+        });
+      }
+    }
+
+    fetchData();
+  }, []);
 
   const changeDisplayName = async (name) => {
     const userRef = doc(db, "users", user.uid);

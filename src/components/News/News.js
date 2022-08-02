@@ -1,5 +1,5 @@
 import { Center, Box } from "@chakra-ui/react";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import NewNewsItem from "./NewNewsItem/NewNewsItem";
 import FirestoreContext from "../../store/firestore-context";
 import NewsList from "./NewsList/NewsList";
