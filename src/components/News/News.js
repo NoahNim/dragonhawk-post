@@ -23,7 +23,6 @@ const News = (props) => {
       console.log(error);
     }
   };
-  console.log(fireCtx.getUserDataFromDB);
 
   return (
     <Box>
