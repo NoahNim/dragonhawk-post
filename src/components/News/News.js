@@ -29,7 +29,9 @@ const News = (props) => {
       <Center>
         <NewNewsItem createNewsItem={createNewsItem} />
       </Center>
-      <NewsList news={fireCtx.newsItemData} />
+      <Center>
+        <NewsList news={props.news} />
+      </Center>
     </Box>
   );
 };

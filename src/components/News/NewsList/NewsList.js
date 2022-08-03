@@ -1,16 +1,24 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Box } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
+import { Box, List, ListItem } from "@chakra-ui/react";
 import NewsPost from "./NewsPost/NewsPost";
 
 const NewsList = (props) => {
-  const [currNews, setCurrNews] = useState();
-  const [theNews, setTheNews] = useState();
-
   return (
     <Box>
-      {/* {currNews?.map((post) => {
-        return <NewsPost post={post} />;
-      })} */}
+      <List>
+        {props?.news?.map((item) => (
+          <ListItem key={item.newsId}>
+            <NewsPost
+              created_at={item.created_at.toDate()}
+              headline={item.headline}
+              content={item.content}
+              newsId={item.newsId}
+              userNamr={item.userName}
+              userId={item.userId}
+            />
+          </ListItem>
+        ))}
+      </List>
     </Box>
   );
 };

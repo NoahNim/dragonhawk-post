@@ -26,14 +26,16 @@ const Home = () => {
   useEffect(() => {
     async function fetchData() {
       const users = await getDocs(collection(db, "users"));
+      let newsArray = [];
 
       if (users) {
         users.forEach(async (user) => {
           let newsDoc = await getDocs(collection(db, `users/${user.id}/news`));
 
           newsDoc.forEach(async (item) => {
-            console.log(item.data());
+            newsArray.push(item.data());
           });
+          setNewsState(newsArray);
         });
       }
     }
@@ -87,7 +89,7 @@ const Home = () => {
               </Center>
             </TabPanel>
             <TabPanel>
-              <News user={user} />
+              <News user={user} news={newsState} />
             </TabPanel>
             <TabPanel>Quests</TabPanel>
           </TabPanels>

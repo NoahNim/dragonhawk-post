@@ -1,18 +1,6 @@
-import React, {
-  createContext,
-  useState,
-  useRef,
-  useEffect,
-  useMemo,
-} from "react";
+import React, { createContext } from "react";
 import { db } from "../Firebase";
-import {
-  doc,
-  setDoc,
-  Timestamp,
-  collection,
-  getDocs,
-} from "firebase/firestore/lite";
+import { doc, setDoc, Timestamp } from "firebase/firestore/lite";
 
 const FirestoreContext = createContext({});
 
