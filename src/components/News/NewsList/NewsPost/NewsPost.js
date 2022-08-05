@@ -1,21 +1,39 @@
 import React from "react";
-import { List, ListItem, Box } from "@chakra-ui/react";
-import { doc, Timestamp } from "firebase/firestore/lite";
+import {
+  List,
+  ListItem,
+  Box,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button,
+} from "@chakra-ui/react";
 
 const NewsPost = (props) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box backgroundColor="grey" margin="10px">
-      <List>
-        <ListItem key={props.headline}>{props.headline}</ListItem>
-        <ListItem key={props.content}>{props.content}</ListItem>
-        <ListItem key={props.userName}>{props.userName}</ListItem>
-        <ListItem key={props.created_at}>
-          {props.created_at.toString()}
-        </ListItem>
-      </List>
-
-      {/* <Box>{props.headline}</Box>
-      <Box>{props.content}</Box> */}
+      <Button onClick={onOpen}>{props.headline}</Button>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalCloseButton />
+        <ModalContent>
+          <ModalHeader>{props.headline}</ModalHeader>
+          <ModalBody>
+            <ListItem key={props.content}>{props.content}</ListItem>
+          </ModalBody>
+          <ModalFooter>
+            <ListItem key={props.userName}>{props.userName}</ListItem>
+            <ListItem key={props.created_at}>
+              {props.created_at.toString()}
+            </ListItem>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };

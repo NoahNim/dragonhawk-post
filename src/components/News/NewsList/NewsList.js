@@ -13,7 +13,7 @@ const NewsList = (props) => {
               headline={item.headline}
               content={item.content}
               newsId={item.newsId}
-              userNamr={item.userName}
+              userName={item.userName}
               userId={item.userId}
             />
           </ListItem>
