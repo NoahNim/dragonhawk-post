@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  List,
   ListItem,
   Box,
   Modal,
@@ -13,6 +12,7 @@ import {
   useDisclosure,
   Button,
 } from "@chakra-ui/react";
+import EditNewsItem from "../../EditNewsItem/EditNewsItem";
 
 const NewsPost = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -20,9 +20,11 @@ const NewsPost = (props) => {
     <Box backgroundColor="grey" margin="10px">
       <Button onClick={onOpen}>{props.headline}</Button>
       <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalCloseButton />
+        <ModalOverlay />
+
         <ModalContent>
           <ModalHeader>{props.headline}</ModalHeader>
+          <ModalCloseButton />
           <ModalBody>
             <ListItem key={props.content}>{props.content}</ListItem>
           </ModalBody>
@@ -31,6 +33,12 @@ const NewsPost = (props) => {
             <ListItem key={props.created_at}>
               {props.created_at.toString()}
             </ListItem>
+            <EditNewsItem
+              headline={props.headline}
+              content={props.content}
+              newsId={props.newsId}
+              userId={props.userId}
+            />
           </ModalFooter>
         </ModalContent>
       </Modal>

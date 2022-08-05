@@ -25,7 +25,7 @@ const EditNewsItem = (props) => {
           width="20px"
           height="20px"
         >
-          Post News
+          Edit News
         </Button>
         <Modal isOpen={isOpen} onClose={onClose} backgroundColor="#A47449">
           <ModalOverlay />
@@ -43,7 +43,13 @@ const EditNewsItem = (props) => {
               <ModalCloseButton />
               <Center>
                 <ModalBody>
-                  <EditNewsForm />
+                  <EditNewsForm
+                    onClose={onClose}
+                    headline={props.headline}
+                    content={props.content}
+                    newsId={props.newsId}
+                    userId={props.userId}
+                  />
                 </ModalBody>
               </Center>
             </ModalContent>
