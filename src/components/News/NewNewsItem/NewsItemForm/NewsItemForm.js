@@ -7,11 +7,13 @@ import {
   Textarea,
   Box,
   Center,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 
 const NewsItemForm = (props) => {
   const [headlineInput, setHeadlineInput] = useState("");
   const [contentInput, setContentInput] = useState("");
+  const [newsCreateError, setNewsCreateError] = useState();
 
   const headlineInputHandler = (event) => {
     setHeadlineInput(event.target.value);
@@ -24,10 +26,19 @@ const NewsItemForm = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    try {
-      props.createNewsItem(headlineInput, contentInput).then(props.onClose());
-    } catch (error) {
-      console.log(error);
+    if (headlineInput.length > 0 && contentInput.length > 0) {
+      try {
+        props.createNewsItem(headlineInput, contentInput).then(() => {
+          setNewsCreateError();
+          props.onClose();
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (headlineInput.length === 0) {
+      setNewsCreateError("Please enter a headline");
+    } else if (contentInput.length === 0) {
+      setNewsCreateError("Please enter content");
     }
   };
 
@@ -35,6 +46,16 @@ const NewsItemForm = (props) => {
     <Center>
       <Box>
         <form onSubmit={submitHandler}>
+          <FormControl isInvalid={newsCreateError}>
+            {newsCreateError === "Please enter a headline" ? (
+              <FormErrorMessage>Please create a headline</FormErrorMessage>
+            ) : null}
+            {newsCreateError === "Please enter content" ? (
+              <FormErrorMessage>
+                Please create content for the news
+              </FormErrorMessage>
+            ) : null}
+          </FormControl>
           <FormLabel htmlFor="headline">Headline</FormLabel>
           <Input
             type="text"

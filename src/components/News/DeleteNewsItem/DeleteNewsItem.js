@@ -41,7 +41,6 @@ const DeleteNewsItem = (props) => {
         <DeleteIcon color="red" />
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalCloseButton />
         <Center>
           <ModalContent
             backgroundColor="#F1BF98"
@@ -52,6 +51,7 @@ const DeleteNewsItem = (props) => {
             height="100x"
           >
             <ModalHeader>Delete {props.headline}</ModalHeader>
+            <ModalCloseButton />
             <ModalBody>
               <form onSubmit={deleteHandler}>
                 <FormLabel htmlFor="headlineCheck">

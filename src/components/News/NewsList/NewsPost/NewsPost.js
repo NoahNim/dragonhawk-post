@@ -19,7 +19,7 @@ import { auth } from "../../../../Firebase";
 const NewsPost = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box backgroundColor="grey" margin="10px">
+    <Box backgroundColor="grey" margin="10px" overflow="scroll">
       <Button onClick={onOpen}>{props.headline}</Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

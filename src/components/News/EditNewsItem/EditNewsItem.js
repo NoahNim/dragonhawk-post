@@ -27,7 +27,12 @@ const EditNewsItem = (props) => {
         >
           Edit News
         </Button>
-        <Modal isOpen={isOpen} onClose={onClose} backgroundColor="#A47449">
+        <Modal
+          isOpen={isOpen}
+          onClose={onClose}
+          backgroundColor="#A47449"
+          overflow="scroll"
+        >
           <ModalOverlay />
           <Center>
             <ModalContent
@@ -42,7 +47,7 @@ const EditNewsItem = (props) => {
 
               <ModalCloseButton />
               <Center>
-                <ModalBody>
+                <ModalBody overflow="scroll">
                   <EditNewsForm
                     onClose={onClose}
                     headline={props.headline}

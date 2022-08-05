@@ -16,7 +16,7 @@ import {
   getDocs,
   onSnapshot,
 } from "firebase/firestore/lite";
-import { db, auth } from "../../Firebase";
+import { db } from "../../Firebase";
 import AuthContext from "../../store/auth-context";
 import { updateProfile } from "firebase/auth";
 import Account from "../Account/Account";

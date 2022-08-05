@@ -55,11 +55,9 @@ const EditNewsForm = (props) => {
           <FormLabel htmlFor="content">Content</FormLabel>
           <Textarea
             height="400px"
-            overflow="scroll"
             value={contentInput}
             onChange={contentInputHandler}
           />
-          {/* overflow scroll not working here for bug */}
           <Button type="submit">Edit</Button>
         </form>
       </Box>
