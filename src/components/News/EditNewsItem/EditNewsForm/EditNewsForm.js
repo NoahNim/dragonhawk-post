@@ -62,7 +62,7 @@ const EditNewsForm = (props) => {
             onChange={contentInputHandler}
           />
           {/* overflow scroll not working here for bug */}
-          <Button type="submit">Post</Button>
+          <Button type="submit">Edit</Button>
         </form>
       </Box>
     </Center>

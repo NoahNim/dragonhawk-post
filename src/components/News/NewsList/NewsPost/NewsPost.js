@@ -13,6 +13,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import EditNewsItem from "../../EditNewsItem/EditNewsItem";
+import DeleteNewsItem from "../../DeleteNewsItem/DeleteNewsItem";
 
 const NewsPost = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -21,6 +22,8 @@ const NewsPost = (props) => {
       <Button onClick={onOpen}>{props.headline}</Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
+
+        {props.newsId === "undefined" ? onClose() : null}
 
         <ModalContent>
           <ModalHeader>{props.headline}</ModalHeader>
@@ -38,6 +41,12 @@ const NewsPost = (props) => {
               content={props.content}
               newsId={props.newsId}
               userId={props.userId}
+            />
+            <DeleteNewsItem
+              newsId={props.newsId}
+              userId={props.userId}
+              headline={props.headline}
+              onClose={onClose}
             />
           </ModalFooter>
         </ModalContent>

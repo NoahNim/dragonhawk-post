@@ -1,6 +1,12 @@
 import React, { createContext } from "react";
 import { db } from "../Firebase";
-import { doc, setDoc, Timestamp, updateDoc } from "firebase/firestore/lite";
+import {
+  doc,
+  setDoc,
+  Timestamp,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore/lite";
 
 const FirestoreContext = createContext({});
 
@@ -50,12 +56,23 @@ export const FirestoreContextProvider = (props) => {
     }
   };
 
+  const DeleteNewsItemInDB = async (userId, newsId) => {
+    const newsDoc = doc(db, "users", `${userId}`, "news", `${newsId}`);
+
+    try {
+      await deleteDoc(newsDoc);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <FirestoreContext.Provider
       value={{
         addUserToDB: addUserToDB,
         addNewstoDB: addNewstoDB,
         EditNewsItemInDB: EditNewsItemInDB,
+        DeleteNewsItemInDB: DeleteNewsItemInDB,
       }}
     >
       {props.children}
