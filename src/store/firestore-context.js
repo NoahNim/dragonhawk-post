@@ -23,7 +23,7 @@ export const FirestoreContextProvider = (props) => {
   const addNewstoDB = async (userId, newsId, userName, headline, content) => {
     try {
       await setDoc(
-        doc(db, "users", userId.toString(), `/news/`, newsId.toString()),
+        doc(db, "users", userId.toString(), "news", newsId.toString()),
         {
           userId: userId,
           newsId: newsId,

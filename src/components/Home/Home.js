@@ -9,7 +9,13 @@ import {
   Box,
   Button,
 } from "@chakra-ui/react";
-import { doc, updateDoc, collection, getDocs } from "firebase/firestore/lite";
+import {
+  doc,
+  updateDoc,
+  collection,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore/lite";
 import { db } from "../../Firebase";
 import AuthContext from "../../store/auth-context";
 import { updateProfile } from "firebase/auth";
@@ -26,16 +32,26 @@ const Home = () => {
   useEffect(() => {
     async function fetchData() {
       const users = await getDocs(collection(db, "users"));
-      let newsArray = [];
 
       if (users) {
         users.forEach(async (user) => {
           let newsDoc = await getDocs(collection(db, `users/${user.id}/news`));
 
-          newsDoc.forEach(async (item) => {
-            newsArray.push(item.data());
+          newsDoc.forEach(async () => {
+            let newsDocItem = await collection(
+              db,
+              "users",
+              `${user.id}`,
+              "news"
+            );
+            onSnapshot(newsDocItem, (newsItem) => {
+              let newsArray = [];
+              newsItem.forEach((doc) => {
+                newsArray.push(doc.data());
+              });
+              setNewsState(newsArray);
+            });
           });
-          setNewsState(newsArray);
         });
       }
     }
