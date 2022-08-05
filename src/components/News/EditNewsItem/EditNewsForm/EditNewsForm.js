@@ -26,8 +26,6 @@ const EditNewsForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-
-    // if (props.userId === )
     try {
       fireCtx
         .EditNewsItemInDB(

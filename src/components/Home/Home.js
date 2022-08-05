@@ -16,7 +16,7 @@ import {
   getDocs,
   onSnapshot,
 } from "firebase/firestore/lite";
-import { db } from "../../Firebase";
+import { db, auth } from "../../Firebase";
 import AuthContext from "../../store/auth-context";
 import { updateProfile } from "firebase/auth";
 import Account from "../Account/Account";
@@ -32,20 +32,22 @@ const Home = () => {
   useEffect(() => {
     async function fetchData() {
       const users = await getDocs(collection(db, "users"));
+      let newsArray = [];
 
       if (users) {
-        users.forEach(async (user) => {
-          let newsDoc = await getDocs(collection(db, `users/${user.id}/news`));
+        users.forEach(async (userFire) => {
+          let newsDoc = await getDocs(
+            collection(db, `users/${userFire.id}/news`)
+          );
 
           newsDoc.forEach(async () => {
             let newsDocItem = await collection(
               db,
               "users",
-              `${user.id}`,
+              `${userFire.id}`,
               "news"
             );
             onSnapshot(newsDocItem, (newsItem) => {
-              let newsArray = [];
               newsItem.forEach((doc) => {
                 newsArray.push(doc.data());
               });
@@ -56,8 +58,10 @@ const Home = () => {
       }
     }
 
-    fetchData();
-  }, []);
+    if (user) {
+      fetchData();
+    }
+  }, [user]);
 
   const changeDisplayName = async (name) => {
     const userRef = doc(db, "users", user.uid);

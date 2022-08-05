@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import EditNewsItem from "../../EditNewsItem/EditNewsItem";
 import DeleteNewsItem from "../../DeleteNewsItem/DeleteNewsItem";
+import { auth } from "../../../../Firebase";
 
 const NewsPost = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,18 +37,22 @@ const NewsPost = (props) => {
             <ListItem key={props.created_at}>
               {props.created_at.toString()}
             </ListItem>
-            <EditNewsItem
-              headline={props.headline}
-              content={props.content}
-              newsId={props.newsId}
-              userId={props.userId}
-            />
-            <DeleteNewsItem
-              newsId={props.newsId}
-              userId={props.userId}
-              headline={props.headline}
-              onClose={onClose}
-            />
+            {auth.currentUser.uid === props.userId ? (
+              <>
+                <EditNewsItem
+                  headline={props.headline}
+                  content={props.content}
+                  newsId={props.newsId}
+                  userId={props.userId}
+                />
+                <DeleteNewsItem
+                  newsId={props.newsId}
+                  userId={props.userId}
+                  headline={props.headline}
+                  onClose={onClose}
+                />
+              </>
+            ) : null}
           </ModalFooter>
         </ModalContent>
       </Modal>

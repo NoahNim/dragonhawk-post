@@ -12,8 +12,6 @@ const FirestoreContext = createContext({});
 
 export const FirestoreContextProvider = (props) => {
   const addUserToDB = async (id, name, email) => {
-    console.log(id, name, email);
-
     try {
       await setDoc(doc(db, "users", id), {
         id: id,
