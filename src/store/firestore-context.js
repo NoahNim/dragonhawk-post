@@ -40,7 +40,6 @@ export const FirestoreContextProvider = (props) => {
 
   const DeleteNewsItemInDB = async (newsId) => {
     const newsDoc = doc(db, "news", `${newsId}`);
-
     try {
       await deleteDoc(newsDoc);
     } catch (error) {

@@ -30,7 +30,7 @@ const DeleteNewsItem = (props) => {
     event.preventDefault();
     if (headlineInput === props.headline) {
       try {
-        fireCtx.DeleteNewsItemInDB(props.userId, props.newsId);
+        fireCtx.DeleteNewsItemInDB(props.newsId);
       } catch (error) {}
     }
   };

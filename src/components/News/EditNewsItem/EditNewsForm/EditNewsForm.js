@@ -28,12 +28,7 @@ const EditNewsForm = (props) => {
     event.preventDefault();
     try {
       fireCtx
-        .EditNewsItemInDB(
-          props.userId,
-          props.newsId,
-          headlineInput,
-          contentInput
-        )
+        .EditNewsItemInDB(props.newsId, headlineInput, contentInput)
         .then(() => {
           props.onClose();
         });

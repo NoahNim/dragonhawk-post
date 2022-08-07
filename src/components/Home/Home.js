@@ -10,15 +10,7 @@ import {
   Button,
   propNames,
 } from "@chakra-ui/react";
-import {
-  doc,
-  updateDoc,
-  collection,
-  getDocs,
-  onSnapshot,
-  query,
-  collectionGroup,
-} from "firebase/firestore/lite";
+import { collection, onSnapshot, query } from "firebase/firestore/lite";
 import { db } from "../../Firebase";
 import AuthContext from "../../store/auth-context";
 import { updateProfile } from "firebase/auth";
@@ -43,7 +35,6 @@ const Home = () => {
   }, []);
 
   const changeDisplayName = async (name) => {
-    const userRef = doc(db, "users", user.uid);
     try {
       await updateProfile(user, {
         displayName: name,
@@ -51,9 +42,6 @@ const Home = () => {
         setDisplayName(name);
         localStorage.setItem("Display State", "1");
         authCtx.setDisplayNameState(true);
-        updateDoc(userRef, {
-          name: user.displayName,
-        });
       });
     } catch (error) {
       console.log(error);
