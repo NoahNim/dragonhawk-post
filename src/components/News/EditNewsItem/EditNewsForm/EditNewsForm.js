@@ -9,7 +9,6 @@ import {
   Center,
 } from "@chakra-ui/react";
 import FirestoreContext from "../../../../store/firestore-context";
-import { auth } from "../../../../Firebase";
 
 const EditNewsForm = (props) => {
   const [headlineInput, setHeadlineInput] = useState(`${props.headline}`);

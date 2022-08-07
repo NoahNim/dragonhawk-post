@@ -8,7 +8,6 @@ import {
   Center,
   Box,
   Button,
-  propNames,
 } from "@chakra-ui/react";
 import { collection, onSnapshot, query } from "firebase/firestore/lite";
 import { db } from "../../Firebase";

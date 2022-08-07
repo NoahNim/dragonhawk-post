@@ -4,7 +4,6 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   FormLabel,
@@ -41,6 +40,7 @@ const DeleteNewsItem = (props) => {
         <DeleteIcon color="red" />
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
         <Center>
           <ModalContent
             backgroundColor="#F1BF98"
