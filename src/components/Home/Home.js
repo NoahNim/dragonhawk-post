@@ -33,16 +33,14 @@ const Home = () => {
   const [newsState, setNewsState] = useState([]);
 
   useEffect(() => {
-    if (user) {
-      const news = query(collection(db, "news"));
-      const snapData = [];
-      onSnapshot(news, (querySnapShot) => {
-        querySnapShot.forEach((doc) => snapData.push(doc.data()));
-        setNewsState(querySnapShot?.docs.map((doc) => doc.data()));
-      });
-      setNewsState(snapData.map((item) => item));
-    }
-  }, [user]);
+    const news = query(collection(db, "news"));
+    const snapData = [];
+    onSnapshot(news, (querySnapShot) => {
+      querySnapShot.forEach((doc) => snapData.push(doc.data()));
+      setNewsState(querySnapShot?.docs.map((doc) => doc.data()));
+    });
+    setNewsState(snapData.map((item) => item));
+  }, []);
 
   const changeDisplayName = async (name) => {
     const userRef = doc(db, "users", user.uid);
