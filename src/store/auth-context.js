@@ -86,18 +86,10 @@ export const AuthContextProvider = (props) => {
   const signup = async (email, password) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      await sendEmailVerification(auth.currentUser)
-        .then(() => {
-          localStorage.setItem("isLoggedIn", "1");
-          setLoginState(true);
-        })
-        .then(() => {
-          fireCtx.addUserToDB(
-            auth.currentUser.uid,
-            auth.currentUser.displayName,
-            email
-          );
-        });
+      await sendEmailVerification(auth.currentUser).then(() => {
+        localStorage.setItem("isLoggedIn", "1");
+        setLoginState(true);
+      });
       console.log(auth.currentUser);
     } catch (error) {
       console.log(error);

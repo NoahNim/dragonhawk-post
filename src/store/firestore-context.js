@@ -11,12 +11,14 @@ import {
 const FirestoreContext = createContext({});
 
 export const FirestoreContextProvider = (props) => {
-  const addUserToDB = async (id, name, email) => {
+  const addNewstoDB = async (userId, newsId, userName, headline, content) => {
     try {
-      await setDoc(doc(db, "users", id), {
-        id: id,
-        name: name,
-        email: email,
+      await setDoc(doc(db, "news", newsId.toString()), {
+        userId: userId,
+        newsId: newsId,
+        userName: userName,
+        headline: headline,
+        content: content,
         created_at: Timestamp.fromDate(new Date()),
       });
     } catch (error) {
@@ -24,26 +26,8 @@ export const FirestoreContextProvider = (props) => {
     }
   };
 
-  const addNewstoDB = async (userId, newsId, userName, headline, content) => {
-    try {
-      await setDoc(
-        doc(db, "users", userId.toString(), "news", newsId.toString()),
-        {
-          userId: userId,
-          newsId: newsId,
-          userName: userName,
-          headline: headline,
-          content: content,
-          created_at: Timestamp.fromDate(new Date()),
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const EditNewsItemInDB = async (userId, newsId, headline, content) => {
-    const newsDoc = doc(db, "users", `${userId}`, "news", `${newsId}`);
+  const EditNewsItemInDB = async (newsId, headline, content) => {
+    const newsDoc = doc(db, "news", `${newsId}`);
     try {
       await updateDoc(newsDoc, {
         headline: headline,
@@ -54,8 +38,8 @@ export const FirestoreContextProvider = (props) => {
     }
   };
 
-  const DeleteNewsItemInDB = async (userId, newsId) => {
-    const newsDoc = doc(db, "users", `${userId}`, "news", `${newsId}`);
+  const DeleteNewsItemInDB = async (newsId) => {
+    const newsDoc = doc(db, "news", `${newsId}`);
 
     try {
       await deleteDoc(newsDoc);
@@ -67,7 +51,6 @@ export const FirestoreContextProvider = (props) => {
   return (
     <FirestoreContext.Provider
       value={{
-        addUserToDB: addUserToDB,
         addNewstoDB: addNewstoDB,
         EditNewsItemInDB: EditNewsItemInDB,
         DeleteNewsItemInDB: DeleteNewsItemInDB,

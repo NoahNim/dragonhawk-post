@@ -8,6 +8,7 @@ import {
   Center,
   Box,
   Button,
+  propNames,
 } from "@chakra-ui/react";
 import {
   doc,
@@ -15,6 +16,8 @@ import {
   collection,
   getDocs,
   onSnapshot,
+  query,
+  collectionGroup,
 } from "firebase/firestore/lite";
 import { db } from "../../Firebase";
 import AuthContext from "../../store/auth-context";
@@ -27,41 +30,17 @@ const Home = () => {
   const authCtx = useContext(AuthContext);
   const user = authCtx.currentUser;
   const [displayName, setDisplayName] = useState();
-  const [newsState, setNewsState] = useState();
+  const [newsState, setNewsState] = useState([]);
+  const [usersState, setUsersState] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
-      const users = await getDocs(collection(db, "users"));
-      let newsArray = [];
-
-      if (users) {
-        users.forEach(async (userFire) => {
-          let newsDoc = await getDocs(
-            collection(db, `users/${userFire.id}/news`)
-          );
-
-          newsDoc.forEach(async () => {
-            let newsDocItem = await collection(
-              db,
-              "users",
-              `${userFire.id}`,
-              "news"
-            );
-            onSnapshot(newsDocItem, (newsItem) => {
-              newsItem.forEach((doc) => {
-                newsArray.push(doc.data());
-              });
-              setNewsState(newsArray);
-            });
-          });
-        });
-      }
-    }
-
-    if (user) {
-      fetchData();
-    }
-  }, [user]);
+    // const users = query(collection(db, "users"));
+    // const users = collectionGroup(db, "users", "news");
+    // onSnapshot(users, (querySnapShot) => {
+    //   console.log(querySnapShot.docs);
+    // setUsersState(querySnapShot.docs.map((doc) => doc.data()));
+    // });
+  }, []);
 
   const changeDisplayName = async (name) => {
     const userRef = doc(db, "users", user.uid);
@@ -109,7 +88,7 @@ const Home = () => {
               </Center>
             </TabPanel>
             <TabPanel>
-              <News user={user} news={newsState} />
+              <News user={user} usersState={usersState} />
             </TabPanel>
             <TabPanel>Quests</TabPanel>
           </TabPanels>
