@@ -31,16 +31,18 @@ const Home = () => {
   const user = authCtx.currentUser;
   const [displayName, setDisplayName] = useState();
   const [newsState, setNewsState] = useState([]);
-  const [usersState, setUsersState] = useState([]);
 
   useEffect(() => {
-    // const users = query(collection(db, "users"));
-    // const users = collectionGroup(db, "users", "news");
-    // onSnapshot(users, (querySnapShot) => {
-    //   console.log(querySnapShot.docs);
-    // setUsersState(querySnapShot.docs.map((doc) => doc.data()));
-    // });
-  }, []);
+    if (user) {
+      const news = query(collection(db, "news"));
+      const snapData = [];
+      onSnapshot(news, (querySnapShot) => {
+        querySnapShot.forEach((doc) => snapData.push(doc.data()));
+        setNewsState(querySnapShot?.docs.map((doc) => doc.data()));
+      });
+      setNewsState(snapData.map((item) => item));
+    }
+  }, [user]);
 
   const changeDisplayName = async (name) => {
     const userRef = doc(db, "users", user.uid);
@@ -88,7 +90,7 @@ const Home = () => {
               </Center>
             </TabPanel>
             <TabPanel>
-              <News user={user} usersState={usersState} />
+              <News user={user} news={newsState} />
             </TabPanel>
             <TabPanel>Quests</TabPanel>
           </TabPanels>
