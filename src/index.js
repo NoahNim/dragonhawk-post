@@ -6,16 +6,19 @@ import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
 import { AuthContextProvider } from "./store/auth-context";
 import { CookieContextProvider } from "./store/cookie-context";
+import { FirestoreContextProvider } from "./store/firestore-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <AuthContextProvider>
-    <CookieContextProvider>
-      <ChakraProvider>
-        <App />
-      </ChakraProvider>
-    </CookieContextProvider>
-  </AuthContextProvider>
+  <FirestoreContextProvider>
+    <AuthContextProvider>
+      <CookieContextProvider>
+        <ChakraProvider>
+          <App />
+        </ChakraProvider>
+      </CookieContextProvider>
+    </AuthContextProvider>
+  </FirestoreContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

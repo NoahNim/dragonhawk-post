@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Tabs,
   TabList,
@@ -8,18 +8,42 @@ import {
   Center,
   Box,
   Button,
+  propNames,
 } from "@chakra-ui/react";
+import {
+  doc,
+  updateDoc,
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  collectionGroup,
+} from "firebase/firestore/lite";
+import { db } from "../../Firebase";
+import AuthContext from "../../store/auth-context";
 import { updateProfile } from "firebase/auth";
 import Account from "../Account/Account";
-import AuthContext from "../../store/auth-context";
 import NewDisplayName from "../Account/DisplayName/NewDisplayName";
+import News from "../News/News";
 
 const Home = () => {
   const authCtx = useContext(AuthContext);
   const user = authCtx.currentUser;
   const [displayName, setDisplayName] = useState();
+  const [newsState, setNewsState] = useState([]);
+
+  useEffect(() => {
+    const news = query(collection(db, "news"));
+    const snapData = [];
+    onSnapshot(news, (querySnapShot) => {
+      querySnapShot.forEach((doc) => snapData.push(doc.data()));
+      setNewsState(querySnapShot?.docs.map((doc) => doc.data()));
+    });
+    setNewsState(snapData.map((item) => item));
+  }, []);
 
   const changeDisplayName = async (name) => {
+    const userRef = doc(db, "users", user.uid);
     try {
       await updateProfile(user, {
         displayName: name,
@@ -27,6 +51,9 @@ const Home = () => {
         setDisplayName(name);
         localStorage.setItem("Display State", "1");
         authCtx.setDisplayNameState(true);
+        updateDoc(userRef, {
+          name: user.displayName,
+        });
       });
     } catch (error) {
       console.log(error);
@@ -60,7 +87,9 @@ const Home = () => {
                 />
               </Center>
             </TabPanel>
-            <TabPanel>News</TabPanel>
+            <TabPanel>
+              <News user={user} news={newsState} />
+            </TabPanel>
             <TabPanel>Quests</TabPanel>
           </TabPanels>
         </Tabs>

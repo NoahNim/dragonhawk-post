@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { auth } from "../Firebase";
 import {
   signInWithEmailAndPassword,
@@ -7,6 +7,7 @@ import {
   onAuthStateChanged,
   sendEmailVerification,
 } from "firebase/auth";
+import FirestoreContext from "./firestore-context";
 
 const AuthContext = React.createContext({
   loginState: false,
@@ -18,6 +19,7 @@ export const AuthContextProvider = (props) => {
   const [signupError, setSignupError] = useState();
   const [loginState, setLoginState] = useState(false);
   const [displayNameState, setDisplayNameState] = useState(false);
+  const fireCtx = useContext(FirestoreContext);
 
   useEffect(() => {
     const storeUserLoggedInInformation = localStorage.getItem("isLoggedIn");
@@ -88,6 +90,7 @@ export const AuthContextProvider = (props) => {
         localStorage.setItem("isLoggedIn", "1");
         setLoginState(true);
       });
+      console.log(auth.currentUser);
     } catch (error) {
       console.log(error);
       setSignupError(mapAuthCode(error.code));
