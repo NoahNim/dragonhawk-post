@@ -38,8 +38,6 @@ const NewNewsItem = (props) => {
               width="350px"
               height="575px"
             >
-              <Center></Center>
-
               <ModalCloseButton />
               <Center>
                 <ModalBody>
