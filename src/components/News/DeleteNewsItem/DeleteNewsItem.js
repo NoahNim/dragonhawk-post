@@ -12,6 +12,8 @@ import {
   Button,
   useDisclosure,
   Center,
+  FormControl,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import FirestoreContext from "../../../store/firestore-context";
@@ -20,6 +22,7 @@ const DeleteNewsItem = (props) => {
   const [headlineInput, setHeadlineInput] = useState("");
   const fireCtx = useContext(FirestoreContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [newsDeleteError, setNewsDeleteError] = useState();
 
   const headlineInputHandler = (event) => {
     setHeadlineInput(event.target.value);
@@ -31,6 +34,8 @@ const DeleteNewsItem = (props) => {
       try {
         fireCtx.DeleteNewsItemInDB(props.newsId);
       } catch (error) {}
+    } else {
+      setNewsDeleteError("Please enter the correct headline");
     }
   };
 
@@ -54,6 +59,13 @@ const DeleteNewsItem = (props) => {
             <ModalCloseButton />
             <ModalBody>
               <form onSubmit={deleteHandler}>
+                <FormControl isInvalid={newsDeleteError}>
+                  {newsDeleteError === "Please enter the correct headline" ? (
+                    <FormErrorMessage>
+                      Please enter the correct headline
+                    </FormErrorMessage>
+                  ) : null}
+                </FormControl>
                 <FormLabel htmlFor="headlineCheck">
                   Please enter the headline to delete news
                 </FormLabel>

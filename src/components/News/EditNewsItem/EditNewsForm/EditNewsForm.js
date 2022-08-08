@@ -7,12 +7,14 @@ import {
   Textarea,
   Box,
   Center,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import FirestoreContext from "../../../../store/firestore-context";
 
 const EditNewsForm = (props) => {
   const [headlineInput, setHeadlineInput] = useState(`${props.headline}`);
   const [contentInput, setContentInput] = useState(`${props.content}`);
+  const [newsCreateError, setNewsCreateError] = useState();
   const fireCtx = useContext(FirestoreContext);
 
   const headlineInputHandler = (event) => {
@@ -25,14 +27,21 @@ const EditNewsForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    try {
-      fireCtx
-        .EditNewsItemInDB(props.newsId, headlineInput, contentInput)
-        .then(() => {
-          props.onClose();
-        });
-    } catch (error) {
-      console.log(error);
+    if (headlineInput.length > 0 && contentInput.length > 0) {
+      try {
+        fireCtx
+          .EditNewsItemInDB(props.newsId, headlineInput, contentInput)
+          .then(() => {
+            setNewsCreateError();
+            props.onClose();
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (headlineInput.length === 0) {
+      setNewsCreateError("Please enter a headline");
+    } else if (contentInput.length === 0) {
+      setNewsCreateError("Please enter content");
     }
   };
 
@@ -40,6 +49,16 @@ const EditNewsForm = (props) => {
     <Center>
       <Box>
         <form onSubmit={submitHandler}>
+          <FormControl isInvalid={newsCreateError}>
+            {newsCreateError === "Please enter a headline" ? (
+              <FormErrorMessage>Please create a headline</FormErrorMessage>
+            ) : null}
+            {newsCreateError === "Please enter content" ? (
+              <FormErrorMessage>
+                Please create content for the news
+              </FormErrorMessage>
+            ) : null}
+          </FormControl>
           <FormLabel htmlFor="headline">Headline</FormLabel>
           <Input
             type="text"
