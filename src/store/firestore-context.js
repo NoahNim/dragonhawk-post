@@ -40,6 +40,7 @@ export const FirestoreContextProvider = (props) => {
         userName: userName,
         questName: questName,
         content: content,
+        created_at: Timestamp.fromDate(new Date()),
       });
     } catch (error) {
       console.log(error);

@@ -2,6 +2,7 @@ import { Center, Box } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import FirestoreContext from "../../store/firestore-context";
 import NewQuest from "./NewQuest/NewQuest";
+import QuestsList from "./QuestsList/QuestsList";
 
 const Quests = (props) => {
   const fireCtx = useContext(FirestoreContext);
@@ -26,7 +27,9 @@ const Quests = (props) => {
       <Center>
         <NewQuest createQuestItem={createQuestItem} />
       </Center>
-      <Center></Center>
+      <Center>
+        <QuestsList quests={props.quests} />
+      </Center>
     </Box>
   );
 };

@@ -9,7 +9,7 @@ import {
   Box,
   Button,
 } from "@chakra-ui/react";
-import { collection, onSnapshot, query } from "firebase/firestore/lite";
+import { collection, doc, onSnapshot, query } from "firebase/firestore/lite";
 import { db } from "../../Firebase";
 import AuthContext from "../../store/auth-context";
 import { updateProfile } from "firebase/auth";
@@ -23,15 +23,17 @@ const Home = () => {
   const user = authCtx.currentUser;
   const [displayName, setDisplayName] = useState();
   const [newsState, setNewsState] = useState([]);
+  const [questsState, setQuestsState] = useState([]);
 
   useEffect(() => {
     const news = query(collection(db, "news"));
-    const snapData = [];
+    const quests = query(collection(db, "quests"));
     onSnapshot(news, (querySnapShot) => {
-      querySnapShot.forEach((doc) => snapData.push(doc.data()));
       setNewsState(querySnapShot?.docs.map((doc) => doc.data()));
     });
-    setNewsState(snapData.map((item) => item));
+    onSnapshot(quests, (querySnapShot) => {
+      setQuestsState(querySnapShot?.docs.map((doc) => doc.data()));
+    });
   }, []);
 
   const changeDisplayName = async (name) => {
@@ -79,7 +81,7 @@ const Home = () => {
               <News user={user} news={newsState} />
             </TabPanel>
             <TabPanel>
-              <Quests user={user} />
+              <Quests user={user} quests={questsState} />
             </TabPanel>
           </TabPanels>
         </Tabs>
