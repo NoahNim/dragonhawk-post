@@ -9,7 +9,7 @@ import {
   Box,
   Button,
 } from "@chakra-ui/react";
-import { collection, doc, onSnapshot, query } from "firebase/firestore/lite";
+import { collection, onSnapshot, query } from "firebase/firestore/lite";
 import { db } from "../../Firebase";
 import AuthContext from "../../store/auth-context";
 import { updateProfile } from "firebase/auth";
