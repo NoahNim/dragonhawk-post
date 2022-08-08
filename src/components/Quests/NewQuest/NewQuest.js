@@ -10,9 +10,9 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
-import NewsItemForm from "./NewsItemForm/NewsItemForm";
+import NewQuestForm from "./NewQuestForm/NewQuestForm";
 
-const NewNewsItem = (props) => {
+const NewQuest = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -25,7 +25,7 @@ const NewNewsItem = (props) => {
           width="20px"
           height="20px"
         >
-          Post News
+          Post Quest
         </Button>
         <Modal isOpen={isOpen} onClose={onClose} backgroundColor="#A47449">
           <ModalOverlay />
@@ -41,8 +41,8 @@ const NewNewsItem = (props) => {
               <ModalCloseButton />
               <Center>
                 <ModalBody>
-                  <NewsItemForm
-                    createNewsItem={props.createNewsItem}
+                  <NewQuestForm
+                    createQuestItem={props.createQuestItem}
                     onClose={onClose}
                   />
                 </ModalBody>
@@ -55,4 +55,4 @@ const NewNewsItem = (props) => {
   );
 };
 
-export default NewNewsItem;
+export default NewQuest;

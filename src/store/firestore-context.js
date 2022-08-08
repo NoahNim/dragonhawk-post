@@ -26,6 +26,39 @@ export const FirestoreContextProvider = (props) => {
     }
   };
 
+  const addQuesttoDB = async (
+    userId,
+    questId,
+    userName,
+    questName,
+    content
+  ) => {
+    try {
+      await setDoc(doc(db, "quests", questId.toString()), {
+        userId: userId,
+        questId: questId,
+        userName: userName,
+        questName: questName,
+        content: content,
+        created_at: Timestamp.fromDate(new Date()),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const EditQuestItemInDB = async (questId, questName, content) => {
+    const questDoc = doc(db, "quests", `${questId}`);
+    try {
+      await updateDoc(questDoc, {
+        questName: questName,
+        content: content,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const EditNewsItemInDB = async (newsId, headline, content) => {
     const newsDoc = doc(db, "news", `${newsId}`);
     try {
@@ -33,6 +66,15 @@ export const FirestoreContextProvider = (props) => {
         headline: headline,
         content: content,
       });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const DeleteQuestItemInDB = async (questId) => {
+    const questDoc = doc(db, "quests", `${questId}`);
+    try {
+      await deleteDoc(questDoc);
     } catch (error) {
       console.log(error);
     }
@@ -53,6 +95,9 @@ export const FirestoreContextProvider = (props) => {
         addNewstoDB: addNewstoDB,
         EditNewsItemInDB: EditNewsItemInDB,
         DeleteNewsItemInDB: DeleteNewsItemInDB,
+        addQuesttoDB: addQuesttoDB,
+        EditQuestItemInDB: EditQuestItemInDB,
+        DeleteQuestItemInDB: DeleteQuestItemInDB,
       }}
     >
       {props.children}

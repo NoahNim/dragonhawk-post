@@ -16,21 +16,24 @@ import { updateProfile } from "firebase/auth";
 import Account from "../Account/Account";
 import NewDisplayName from "../Account/DisplayName/NewDisplayName";
 import News from "../News/News";
+import Quests from "../Quests/Quests";
 
 const Home = () => {
   const authCtx = useContext(AuthContext);
   const user = authCtx.currentUser;
   const [displayName, setDisplayName] = useState();
   const [newsState, setNewsState] = useState([]);
+  const [questsState, setQuestsState] = useState([]);
 
   useEffect(() => {
     const news = query(collection(db, "news"));
-    const snapData = [];
+    const quests = query(collection(db, "quests"));
     onSnapshot(news, (querySnapShot) => {
-      querySnapShot.forEach((doc) => snapData.push(doc.data()));
       setNewsState(querySnapShot?.docs.map((doc) => doc.data()));
     });
-    setNewsState(snapData.map((item) => item));
+    onSnapshot(quests, (querySnapShot) => {
+      setQuestsState(querySnapShot?.docs.map((doc) => doc.data()));
+    });
   }, []);
 
   const changeDisplayName = async (name) => {
@@ -77,7 +80,9 @@ const Home = () => {
             <TabPanel>
               <News user={user} news={newsState} />
             </TabPanel>
-            <TabPanel>Quests</TabPanel>
+            <TabPanel>
+              <Quests user={user} quests={questsState} />
+            </TabPanel>
           </TabPanels>
         </Tabs>
       ) : (
