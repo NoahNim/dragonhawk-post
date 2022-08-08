@@ -16,6 +16,7 @@ import { updateProfile } from "firebase/auth";
 import Account from "../Account/Account";
 import NewDisplayName from "../Account/DisplayName/NewDisplayName";
 import News from "../News/News";
+import Quests from "../Quests/Quests";
 
 const Home = () => {
   const authCtx = useContext(AuthContext);
@@ -77,7 +78,9 @@ const Home = () => {
             <TabPanel>
               <News user={user} news={newsState} />
             </TabPanel>
-            <TabPanel>Quests</TabPanel>
+            <TabPanel>
+              <Quests user={user} />
+            </TabPanel>
           </TabPanels>
         </Tabs>
       ) : (

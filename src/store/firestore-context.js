@@ -26,7 +26,7 @@ export const FirestoreContextProvider = (props) => {
     }
   };
 
-  const addQueststoDB = async (
+  const addQuesttoDB = async (
     userId,
     questId,
     userName,
@@ -94,7 +94,7 @@ export const FirestoreContextProvider = (props) => {
         addNewstoDB: addNewstoDB,
         EditNewsItemInDB: EditNewsItemInDB,
         DeleteNewsItemInDB: DeleteNewsItemInDB,
-        addQueststoDB: addQueststoDB,
+        addQuesttoDB: addQuesttoDB,
         EditQuestItemInDB: EditQuestItemInDB,
         DeleteQuestItemInDB: DeleteQuestItemInDB,
       }}
