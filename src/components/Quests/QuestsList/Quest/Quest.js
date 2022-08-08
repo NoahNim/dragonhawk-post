@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import EditQuest from "../../EditQuest/EditQuest";
 import { auth } from "../../../../Firebase";
+import DeleteQuest from "../../DeleteQuest/DeleteQuest";
 
 const Quest = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -43,6 +44,12 @@ const Quest = (props) => {
                   content={props.content}
                   questId={props.questId}
                   userId={props.userId}
+                />
+                <DeleteQuest
+                  questName={props.questName}
+                  questId={props.questId}
+                  userId={props.userId}
+                  onClose={onClose}
                 />
               </>
             ) : null}
