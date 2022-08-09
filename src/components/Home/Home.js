@@ -28,6 +28,7 @@ const Home = () => {
   useEffect(() => {
     const news = query(collection(db, "news"));
     const quests = query(collection(db, "quests"));
+
     onSnapshot(news, (querySnapShot) => {
       setNewsState(querySnapShot?.docs.map((doc) => doc.data()));
     });

@@ -19,7 +19,6 @@ export const AuthContextProvider = (props) => {
   const [signupError, setSignupError] = useState();
   const [loginState, setLoginState] = useState(false);
   const [displayNameState, setDisplayNameState] = useState(false);
-  const fireCtx = useContext(FirestoreContext);
 
   useEffect(() => {
     const storeUserLoggedInInformation = localStorage.getItem("isLoggedIn");
