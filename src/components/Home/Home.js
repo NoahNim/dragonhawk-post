@@ -75,6 +75,8 @@ const Home = () => {
                   setDisplayName={setDisplayName}
                   logOutHandler={logOutHandler}
                   changeDisplayName={changeDisplayName}
+                  quests={questsState}
+                  news={newsState}
                 />
               </Center>
             </TabPanel>

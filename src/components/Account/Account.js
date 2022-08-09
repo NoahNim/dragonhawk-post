@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Button, Box } from "@chakra-ui/react";
+import { Button, Box, Center } from "@chakra-ui/react";
 import AuthContext from "../../store/auth-context";
 import AccountInfo from "./AccountInfo";
 import { auth } from "../../Firebase";
@@ -10,8 +10,6 @@ import DeleteAccount from "./DeleteAccount/DeleteAccount";
 const Account = (props) => {
   const authCtx = useContext(AuthContext);
   const user = authCtx.currentUser;
-
-  // const [displayName, setDisplayName] = useState();
   const [email, setEmail] = useState();
   const [emailVerified, setEmailVerified] = useState();
 
@@ -27,18 +25,33 @@ const Account = (props) => {
   }, [user, props]);
 
   return (
-    <Box>
+    <Box margin="10px">
       <AccountInfo
         displayName={props.displayName}
         email={email}
         emailVerified={emailVerified}
         changeDisplayName={props.changeDisplayName}
       />
-      <Box display="flex" flexDirection="row" justifyContent="space-evenly">
-        <Button onClick={props.logOutHandler}>Log Out</Button>
-        <ChangePassword email={email} />
-        <DeleteAccount email={email} />
-      </Box>
+      <Center>
+        <Box display="flex" flexDirection="row" justifyContent="space-evenly">
+          <Button
+            width="20px"
+            height="20px"
+            fontSize="8px"
+            onClick={props.logOutHandler}
+            marginTop="5px"
+            marginRight="5px"
+          >
+            Log Out
+          </Button>
+          <Box marginRight="5px">
+            <ChangePassword email={email} />
+          </Box>
+          <Box>
+            <DeleteAccount email={email} />
+          </Box>
+        </Box>
+      </Center>
     </Box>
   );
 };
