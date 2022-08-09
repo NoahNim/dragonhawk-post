@@ -5,18 +5,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
 import { AuthContextProvider } from "./store/auth-context";
-import { CookieContextProvider } from "./store/cookie-context";
 import { FirestoreContextProvider } from "./store/firestore-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <FirestoreContextProvider>
     <AuthContextProvider>
-      <CookieContextProvider>
-        <ChakraProvider>
-          <App />
-        </ChakraProvider>
-      </CookieContextProvider>
+      <ChakraProvider>
+        <App />
+      </ChakraProvider>
     </AuthContextProvider>
   </FirestoreContextProvider>
 );

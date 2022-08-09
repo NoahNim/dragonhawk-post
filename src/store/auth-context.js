@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "../Firebase";
 import {
   signInWithEmailAndPassword,
@@ -7,7 +7,6 @@ import {
   onAuthStateChanged,
   sendEmailVerification,
 } from "firebase/auth";
-import FirestoreContext from "./firestore-context";
 
 const AuthContext = React.createContext({
   loginState: false,
