@@ -14,6 +14,7 @@ import {
   Center,
   FormControl,
   FormErrorMessage,
+  Tooltip,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import FirestoreContext from "../../../store/firestore-context";
@@ -45,9 +46,17 @@ const DeleteNewsItem = (props) => {
 
   return (
     <Box>
-      <Button onClick={onOpen}>
-        <DeleteIcon color="red" />
-      </Button>
+      <Box>
+        <Tooltip label="Delete">
+          <DeleteIcon
+            _hover={{ cursor: "pointer" }}
+            onClick={onOpen}
+            color="red"
+            margin="5px"
+          />
+        </Tooltip>
+      </Box>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <Center>
