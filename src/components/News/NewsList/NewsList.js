@@ -5,7 +5,7 @@ import NewsPost from "./NewsPost/NewsPost";
 const NewsList = (props) => {
   return (
     <Box>
-      <List>
+      <List styleType="none">
         {props?.news?.map((item) => (
           <ListItem key={item.newsId}>
             <NewsPost

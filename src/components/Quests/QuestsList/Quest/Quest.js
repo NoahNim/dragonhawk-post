@@ -32,11 +32,15 @@ const Quest = (props) => {
           <ModalHeader>{props.questName}</ModalHeader>
           <ModalCloseButton />
           <ModalBody backgroundColor="#EEE4E1">
-            <ListItem key={props.content}>{props.content}</ListItem>
+            <ListItem listStyleType="none" key={props.content}>
+              {props.content}
+            </ListItem>
           </ModalBody>
           <ModalFooter>
-            <ListItem key={props.userName}>{props.userName}</ListItem>
-            <ListItem key={props.created_at}>
+            <ListItem listStyleType="none" key={props.userName}>
+              {props.userName}
+            </ListItem>
+            <ListItem listStyleType="none" key={props.created_at}>
               {props.created_at.toString()}
             </ListItem>
             {auth.currentUser.uid === props.userId ? (
