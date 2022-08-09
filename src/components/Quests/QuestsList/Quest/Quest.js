@@ -20,16 +20,18 @@ const Quest = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box backgroundColor="grey" margin="10px" overflow="scroll">
-      <Button onClick={onOpen}>{props.questName}</Button>
+    <Box margin="10px" overflow="scroll">
+      <Button backgroundColor="#E7D8C9" onClick={onOpen}>
+        {props.questName}
+      </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
 
         {props.questId === "undefined" ? onClose() : null}
-        <ModalContent>
+        <ModalContent backgroundColor="#E7D8C9">
           <ModalHeader>{props.questName}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
+          <ModalBody backgroundColor="#EEE4E1">
             <ListItem key={props.content}>{props.content}</ListItem>
           </ModalBody>
           <ModalFooter>

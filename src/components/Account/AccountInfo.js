@@ -6,7 +6,7 @@ import NewDisplayNameModal from "./DisplayName/NewDisplayNameModal";
 const AccountInfo = (props) => {
   return (
     <Center>
-      <List backgroundColor="#e3c07b" borderRadius="6px" padding="15px">
+      <List backgroundColor="#E6BEAE" borderRadius="6px" padding="15px">
         <ListItem margin="10px">
           <ListIcon as={EmailIcon} color="#e6dfd1" />
           Email: {props.email}

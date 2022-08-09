@@ -18,23 +18,30 @@ import { auth } from "../../../../Firebase";
 
 const NewsPost = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
-    <Box backgroundColor="grey" margin="10px" overflow="scroll">
-      <Button onClick={onOpen}>{props.headline}</Button>
+    <Box margin="10px">
+      <Button backgroundColor="#E7D8C9" onClick={onOpen}>
+        {props.headline}
+      </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
 
         {props.newsId === "undefined" ? onClose() : null}
 
-        <ModalContent>
+        <ModalContent backgroundColor="#E7D8C9">
           <ModalHeader>{props.headline}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            <ListItem key={props.content}>{props.content}</ListItem>
+          <ModalBody backgroundColor="#EEE4E1">
+            <ListItem listStyleType="none" key={props.content}>
+              {props.content}
+            </ListItem>
           </ModalBody>
           <ModalFooter>
-            <ListItem key={props.userName}>{props.userName}</ListItem>
-            <ListItem key={props.created_at}>
+            <ListItem listStyleType="none" key={props.userName}>
+              {props.userName}
+            </ListItem>
+            <ListItem listStyleType="none" key={props.created_at}>
               {props.created_at.toString()}
             </ListItem>
             {auth.currentUser.uid === props.userId ? (
