@@ -33,15 +33,15 @@ const NewsPost = (props) => {
           <ModalHeader>{props.headline}</ModalHeader>
           <ModalCloseButton />
           <ModalBody backgroundColor="#EEE4E1">
-            <ListItem listStyleType="none" key={props.content}>
+            <ListItem liststyleType="none" key={props.content}>
               {props.content}
             </ListItem>
           </ModalBody>
           <ModalFooter>
-            <ListItem listStyleType="none" key={props.userName}>
+            <ListItem liststyleType="none" key={props.userName}>
               {props.userName}
             </ListItem>
-            <ListItem listStyleType="none" key={props.created_at}>
+            <ListItem liststyleType="none" key={props.created_at}>
               {props.created_at.toString()}
             </ListItem>
             {auth.currentUser.uid === props.userId ? (

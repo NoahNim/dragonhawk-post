@@ -1,17 +1,21 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Button, Box, Center } from "@chakra-ui/react";
+import { Button, Box, Center, List, ListItem } from "@chakra-ui/react";
 import AuthContext from "../../store/auth-context";
 import AccountInfo from "./AccountInfo";
 import { auth } from "../../Firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import ChangePassword from "./ChangePassword/ChangePassword";
 import DeleteAccount from "./DeleteAccount/DeleteAccount";
+import NewsPost from "../News/NewsList/NewsPost/NewsPost";
+import Quest from "../Quests/QuestsList/Quest/Quest";
 
 const Account = (props) => {
   const authCtx = useContext(AuthContext);
   const user = authCtx.currentUser;
   const [email, setEmail] = useState();
   const [emailVerified, setEmailVerified] = useState();
+  const [userNews, setUserNews] = useState();
+  const [userQuests, setUserQuests] = useState();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -19,6 +23,10 @@ const Account = (props) => {
         props.setDisplayName(user.displayName);
         setEmail(user.email);
         setEmailVerified(user.emailVerified);
+        setUserNews(props.news.filter((news) => news.userId === user.uid));
+        setUserQuests(
+          props.quests.filter((quests) => quests.userId === user.uid)
+        );
       } else {
       }
     });
@@ -52,6 +60,57 @@ const Account = (props) => {
           </Box>
         </Box>
       </Center>
+
+      <Box
+        margin="10px"
+        width="300px"
+        backgroundColor="#E6BEAE"
+        borderRadius="6px"
+        padding="15px"
+      >
+        <Center display="flex" flexDirection="column">
+          News Posted By You:
+          <List>
+            {userNews?.map((item) => (
+              <ListItem key={item.newsId}>
+                <NewsPost
+                  created_at={item.created_at.toDate()}
+                  headline={item.headline}
+                  content={item.content}
+                  newsId={item.newsId}
+                  userName={item.userName}
+                  userId={item.userId}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Center>
+      </Box>
+      <Box
+        margin="10px"
+        width="300px"
+        backgroundColor="#E6BEAE"
+        borderRadius="6px"
+        padding="15px"
+      >
+        <Center display="flex" flexDirection="column">
+          Quests Posted By You:
+          <List>
+            {userQuests?.map((item) => (
+              <ListItem key={item.questId}>
+                <Quest
+                  questId={item.questId}
+                  questName={item.questName}
+                  content={item.content}
+                  userId={item.userId}
+                  userName={item.userName}
+                  created_at={item.created_at.toDate()}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Center>
+      </Box>
     </Box>
   );
 };
