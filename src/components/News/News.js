@@ -27,7 +27,7 @@ const News = (props) => {
 
   return (
     <Box>
-      <Center>
+      <Center margin="5px">
         {auth.currentUser.emailVerified ? (
           <NewNewsItem createNewsItem={createNewsItem} />
         ) : (
@@ -36,7 +36,7 @@ const News = (props) => {
           </Box>
         )}
       </Center>
-      <Center>
+      <Center height="88vh">
         <NewsList news={props.news} />
       </Center>
     </Box>

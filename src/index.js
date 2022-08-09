@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Container } from "@chakra-ui/react";
 import { AuthContextProvider } from "./store/auth-context";
 import { FirestoreContextProvider } from "./store/firestore-context";
 
@@ -12,7 +12,9 @@ root.render(
   <FirestoreContextProvider>
     <AuthContextProvider>
       <ChakraProvider>
-        <App />
+        <Container maxHeight="100vh" maxWidth="100vw">
+          <App />
+        </Container>
       </ChakraProvider>
     </AuthContextProvider>
   </FirestoreContextProvider>

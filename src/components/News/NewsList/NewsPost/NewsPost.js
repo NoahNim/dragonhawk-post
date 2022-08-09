@@ -21,7 +21,7 @@ const NewsPost = (props) => {
 
   return (
     <Box margin="10px">
-      <Button backgroundColor="#E7D8C9" onClick={onOpen}>
+      <Button backgroundColor="#EEE4E1" fontSize="18x" onClick={onOpen}>
         {props.headline}
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -29,10 +29,10 @@ const NewsPost = (props) => {
 
         {props.newsId === "undefined" ? onClose() : null}
 
-        <ModalContent backgroundColor="#E7D8C9">
+        <ModalContent backgroundColor="#EEE4E1">
           <ModalHeader>{props.headline}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody backgroundColor="#EEE4E1">
+          <ModalBody backgroundColor="#ECF8F8">
             <ListItem listStyleType="none" key={props.content}>
               {props.content}
             </ListItem>
