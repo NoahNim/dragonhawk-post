@@ -10,6 +10,7 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import FirestoreContext from "../../../../store/firestore-context";
+import { auth } from "../../../../Firebase";
 
 const EditQuestForm = (props) => {
   const [questNameInput, setQuestNameInput] = useState(props.questName);
@@ -28,7 +29,11 @@ const EditQuestForm = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (questNameInput.length > 0 && contentInputHandler.length > 0) {
+    if (
+      questNameInput.length > 0 &&
+      contentInputHandler.length > 0 &&
+      props.userId === auth.currentUser.uid
+    ) {
       try {
         fireCtx
           .EditQuestItemInDB(props.questId, questNameInput, contentInput)

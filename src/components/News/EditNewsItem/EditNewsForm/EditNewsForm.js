@@ -10,6 +10,7 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import FirestoreContext from "../../../../store/firestore-context";
+import { auth } from "../../../../Firebase";
 
 const EditNewsForm = (props) => {
   const [headlineInput, setHeadlineInput] = useState(`${props.headline}`);
@@ -27,7 +28,11 @@ const EditNewsForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    if (headlineInput.length > 0 && contentInput.length > 0) {
+    if (
+      headlineInput.length > 0 &&
+      contentInput.length > 0 &&
+      props.userId === auth.currentUser.uid
+    ) {
       try {
         fireCtx
           .EditNewsItemInDB(props.newsId, headlineInput, contentInput)

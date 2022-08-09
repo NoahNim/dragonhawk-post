@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import FirestoreContext from "../../../store/firestore-context";
+import { auth } from "../../../Firebase";
 
 const DeleteNewsItem = (props) => {
   const [headlineInput, setHeadlineInput] = useState("");
@@ -30,7 +31,10 @@ const DeleteNewsItem = (props) => {
 
   const deleteHandler = (event) => {
     event.preventDefault();
-    if (headlineInput === props.headline) {
+    if (
+      headlineInput === props.headline &&
+      props.userId === auth.currentUser.uid
+    ) {
       try {
         fireCtx.DeleteNewsItemInDB(props.newsId);
       } catch (error) {}

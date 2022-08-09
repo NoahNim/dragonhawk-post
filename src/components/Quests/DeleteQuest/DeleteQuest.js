@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import FirestoreContext from "../../../store/firestore-context";
+import { auth } from "../../../Firebase";
 
 const DeleteQuest = (props) => {
   const [questNameInput, setQuestNameInput] = useState("");
@@ -30,7 +31,10 @@ const DeleteQuest = (props) => {
 
   const deleteHandler = (event) => {
     event.preventDefault();
-    if (questNameInput === props.questName) {
+    if (
+      questNameInput === props.questName &&
+      props.userId === auth.currentUser.uid
+    ) {
       try {
         fireCtx.DeleteQuestItemInDB(props.questId);
         setQuestDeleteError();
