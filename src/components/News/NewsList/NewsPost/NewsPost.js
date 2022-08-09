@@ -20,16 +20,21 @@ const NewsPost = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box margin="10px">
+    <Box margin="5px">
       <Button backgroundColor="#EEE4E1" fontSize="18x" onClick={onOpen}>
         {props.headline}
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} width="100%">
         <ModalOverlay />
 
         {props.newsId === "undefined" ? onClose() : null}
 
-        <ModalContent backgroundColor="#EEE4E1">
+        <ModalContent
+          height="60vh"
+          backgroundColor="#EEE4E1"
+          margin="140px"
+          padding="25px"
+        >
           <ModalHeader>{props.headline}</ModalHeader>
           <ModalCloseButton />
           <ModalBody backgroundColor="#ECF8F8">
@@ -39,10 +44,11 @@ const NewsPost = (props) => {
           </ModalBody>
           <ModalFooter>
             <ListItem listStyleType="none" key={props.userName}>
-              {props.userName}
+              Posted by: {props.userName}
             </ListItem>
             <ListItem listStyleType="none" key={props.created_at}>
-              {props.created_at.toString()}
+              Date Added:
+              {props.created_at}
             </ListItem>
             {auth.currentUser.uid === props.userId ? (
               <>
