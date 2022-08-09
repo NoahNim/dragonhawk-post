@@ -7,7 +7,9 @@ import { auth } from "./Firebase";
 function App() {
   let userCtx = useContext(AuthContext);
 
-  return <Box>{userCtx.loginState ? <Home /> : <Login />}</Box>;
+  return (
+    <Box>{userCtx.loginState && auth.currentUser ? <Home /> : <Login />}</Box>
+  );
 }
 
 export default App;

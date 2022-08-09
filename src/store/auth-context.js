@@ -67,6 +67,7 @@ export const AuthContextProvider = (props) => {
       await signInWithEmailAndPassword(auth, email, password).then(() => {
         localStorage.setItem("isLoggedIn", "1");
         setLoginState(true);
+        setLoginError();
       });
     } catch (error) {
       setLoginError(mapAuthCode(error.code));
@@ -88,6 +89,7 @@ export const AuthContextProvider = (props) => {
       await sendEmailVerification(auth.currentUser).then(() => {
         localStorage.setItem("isLoggedIn", "1");
         setLoginState(true);
+        setSignupError();
       });
       console.log(auth.currentUser);
     } catch (error) {
