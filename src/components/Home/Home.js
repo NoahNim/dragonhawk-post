@@ -28,13 +28,24 @@ const Home = () => {
   useEffect(() => {
     const news = query(collection(db, "news"));
     const quests = query(collection(db, "quests"));
-
-    onSnapshot(news, (querySnapShot) => {
-      setNewsState(querySnapShot?.docs.map((doc) => doc.data()));
-    });
-    onSnapshot(quests, (querySnapShot) => {
-      setQuestsState(querySnapShot?.docs.map((doc) => doc.data()));
-    });
+    const newScribe = onSnapshot(
+      news,
+      (querySnapShot) => {
+        setNewsState(querySnapShot?.docs.map((doc) => doc.data()));
+      },
+      (error) => {
+        // ...
+      }
+    );
+    const questScribe = onSnapshot(
+      quests,
+      (querySnapShot) => {
+        setQuestsState(querySnapShot?.docs.map((doc) => doc.data()));
+      },
+      (error) => {
+        // ...
+      }
+    );
   }, []);
 
   const changeDisplayName = async (name) => {

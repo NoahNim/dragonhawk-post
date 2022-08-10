@@ -25,7 +25,7 @@ const Quests = (props) => {
 
   return (
     <Box>
-      <Center>
+      <Center margin="5px">
         {auth.currentUser.emailVerified ? (
           <NewQuest createQuestItem={createQuestItem} />
         ) : (
@@ -34,7 +34,7 @@ const Quests = (props) => {
           </Box>
         )}
       </Center>
-      <Center>
+      <Center height="88vh">
         <QuestsList quests={props.quests} />
       </Center>
     </Box>

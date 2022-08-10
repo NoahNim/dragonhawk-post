@@ -21,27 +21,33 @@ const Quest = (props) => {
 
   return (
     <Box margin="10px" overflow="scroll">
-      <Button backgroundColor="#E7D8C9" onClick={onOpen}>
+      <Button backgroundColor="#EEE4E1" fontSize="18x" onClick={onOpen}>
         {props.questName}
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} width="100%">
         <ModalOverlay />
 
         {props.questId === "undefined" ? onClose() : null}
-        <ModalContent backgroundColor="#E7D8C9">
+        <ModalContent
+          height="60vh"
+          backgroundColor="#EEE4E1"
+          margin="140px"
+          padding="25px"
+        >
           <ModalHeader>{props.questName}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody backgroundColor="#EEE4E1">
+          <ModalBody backgroundColor="#ECF8F8">
             <ListItem listStyleType="none" key={props.content}>
               {props.content}
             </ListItem>
           </ModalBody>
           <ModalFooter>
             <ListItem listStyleType="none" key={props.userName}>
-              {props.userName}
+              Posted by: {props.userName}
             </ListItem>
             <ListItem listStyleType="none" key={props.created_at}>
-              {props.created_at.toString()}
+              Date Added:
+              {props.created_at}
             </ListItem>
             {auth.currentUser.uid === props.userId ? (
               <>

@@ -14,6 +14,7 @@ import {
   Center,
   FormControl,
   FormErrorMessage,
+  Tooltip,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import FirestoreContext from "../../../store/firestore-context";
@@ -47,9 +48,16 @@ const DeleteQuest = (props) => {
 
   return (
     <Box>
-      <Button onClick={onOpen}>
-        <DeleteIcon color="red" />
-      </Button>
+      <Box>
+        <Tooltip label="Delete">
+          <DeleteIcon
+            _hover={{ cursor: "pointer" }}
+            onClick={onOpen}
+            color="red"
+            margin="5px"
+          />
+        </Tooltip>
+      </Box>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <Center>
@@ -60,6 +68,7 @@ const DeleteQuest = (props) => {
             borderRadius="6px"
             width="300px"
             height="100x"
+            margin="30vh"
           >
             <ModalHeader>Delete {props.questName}</ModalHeader>
             <ModalCloseButton />
@@ -74,15 +83,22 @@ const DeleteQuest = (props) => {
                   ) : null}
                 </FormControl>
                 <FormLabel htmlFor="questNameCheck">
-                  Please enter the quest name to delete news
+                  Please enter the quest name to delete quest
                 </FormLabel>
                 <Input
                   type="text"
                   value={questNameInput}
                   onChange={questNameInputHandler}
+                  backgroundColor="#ECF8F8"
                 />
-                <Button type="submit">
-                  <DeleteIcon color="red" />
+                <Button marginLeft="80%" background="none" type="submit">
+                  <Tooltip label="Delete">
+                    <DeleteIcon
+                      _hover={{ cursor: "pointer" }}
+                      onClick={onOpen}
+                      color="red"
+                    />
+                  </Tooltip>
                 </Button>
               </form>
             </ModalBody>

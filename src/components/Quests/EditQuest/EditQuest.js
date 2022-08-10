@@ -7,9 +7,10 @@ import {
   ModalCloseButton,
   Center,
   Box,
-  Button,
+  Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
+import { EditIcon } from "@chakra-ui/icons";
 import EditQuestForm from "./EditQuestForm/EditQuestForm";
 
 const EditQuest = (props) => {
@@ -18,15 +19,16 @@ const EditQuest = (props) => {
   return (
     <Center>
       <Box>
-        <Button
-          backgroundColor="#84F0C7"
-          onClick={onOpen}
-          fontSize="8px"
-          width="20px"
-          height="20px"
-        >
-          Edit Quest
-        </Button>
+        <Box>
+          <Tooltip label="Edit">
+            <EditIcon
+              _hover={{ cursor: "pointer" }}
+              color="blue"
+              onClick={onOpen}
+              margin="5px"
+            />
+          </Tooltip>
+        </Box>
         <Modal
           isOpen={isOpen}
           onClose={onClose}
