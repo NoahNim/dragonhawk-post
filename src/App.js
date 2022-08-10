@@ -6,7 +6,6 @@ import { Box } from "@chakra-ui/react";
 import { auth } from "./Firebase";
 function App() {
   let userCtx = useContext(AuthContext);
-
   return (
     <Box>{userCtx.loginState && auth.currentUser ? <Home /> : <Login />}</Box>
   );

@@ -53,7 +53,11 @@ const Account = (props) => {
             Log Out
           </Button>
           <Box marginRight="5px">
-            <ChangePassword email={email} />
+            <ChangePassword
+              email={email}
+              emailSent={props.emailSent}
+              setEmailSent={props.setEmailSent}
+            />
           </Box>
           <Box>
             <DeleteAccount email={email} />
@@ -74,7 +78,7 @@ const Account = (props) => {
             {userNews?.map((item) => (
               <ListItem key={item.newsId}>
                 <NewsPost
-                  created_at={item.created_at.toDate()}
+                  created_at={item.created_at.toDate().toLocaleString()}
                   headline={item.headline}
                   content={item.content}
                   newsId={item.newsId}
