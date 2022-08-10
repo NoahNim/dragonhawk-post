@@ -5,8 +5,11 @@ import NewDisplayNameModal from "./DisplayName/NewDisplayNameModal";
 
 const AccountInfo = (props) => {
   return (
-    <Center>
-      <List backgroundColor="#e3c07b" borderRadius="6px" padding="15px">
+    <Center display="flex" flexDirection="column">
+      <Box>
+        <b>Displaying Account Profile: {props?.displayName}</b>
+      </Box>
+      <List backgroundColor="#E6BEAE" borderRadius="6px" padding="15px">
         <ListItem margin="10px">
           <ListIcon as={EmailIcon} color="#e6dfd1" />
           Email: {props.email}

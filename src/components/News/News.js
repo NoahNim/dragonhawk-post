@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import NewNewsItem from "./NewNewsItem/NewNewsItem";
 import FirestoreContext from "../../store/firestore-context";
 import NewsList from "./NewsList/NewsList";
+import { auth } from "../../Firebase";
 
 const News = (props) => {
   // The news is a bulletin board. Each news items will be a modal that opens up as an obverlay on the users screen.
@@ -26,10 +27,16 @@ const News = (props) => {
 
   return (
     <Box>
-      <Center>
-        <NewNewsItem createNewsItem={createNewsItem} />
+      <Center margin="5px">
+        {auth.currentUser.emailVerified ? (
+          <NewNewsItem createNewsItem={createNewsItem} />
+        ) : (
+          <Box>
+            <p>Please validate your email to post!</p>
+          </Box>
+        )}
       </Center>
-      <Center>
+      <Center height="88vh">
         <NewsList news={props.news} />
       </Center>
     </Box>

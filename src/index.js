@@ -3,20 +3,19 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Container } from "@chakra-ui/react";
 import { AuthContextProvider } from "./store/auth-context";
-import { CookieContextProvider } from "./store/cookie-context";
 import { FirestoreContextProvider } from "./store/firestore-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <FirestoreContextProvider>
     <AuthContextProvider>
-      <CookieContextProvider>
-        <ChakraProvider>
+      <ChakraProvider>
+        <Container maxHeight="100vh" maxWidth="100vw">
           <App />
-        </ChakraProvider>
-      </CookieContextProvider>
+        </Container>
+      </ChakraProvider>
     </AuthContextProvider>
   </FirestoreContextProvider>
 );

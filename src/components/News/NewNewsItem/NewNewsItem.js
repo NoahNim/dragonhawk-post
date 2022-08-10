@@ -21,9 +21,9 @@ const NewNewsItem = (props) => {
         <Button
           backgroundColor="#84F0C7"
           onClick={onOpen}
-          fontSize="8px"
-          width="20px"
-          height="20px"
+          fontSize="16px"
+          width="100%"
+          height="100%"
         >
           Post News
         </Button>

@@ -14,9 +14,11 @@ import {
   Center,
   FormControl,
   FormErrorMessage,
+  Tooltip,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import FirestoreContext from "../../../store/firestore-context";
+import { auth } from "../../../Firebase";
 
 const DeleteNewsItem = (props) => {
   const [headlineInput, setHeadlineInput] = useState("");
@@ -30,7 +32,10 @@ const DeleteNewsItem = (props) => {
 
   const deleteHandler = (event) => {
     event.preventDefault();
-    if (headlineInput === props.headline) {
+    if (
+      headlineInput === props.headline &&
+      props.userId === auth.currentUser.uid
+    ) {
       try {
         fireCtx.DeleteNewsItemInDB(props.newsId);
       } catch (error) {}
@@ -41,9 +46,17 @@ const DeleteNewsItem = (props) => {
 
   return (
     <Box>
-      <Button onClick={onOpen}>
-        <DeleteIcon color="red" />
-      </Button>
+      <Box>
+        <Tooltip label="Delete">
+          <DeleteIcon
+            _hover={{ cursor: "pointer" }}
+            onClick={onOpen}
+            color="red"
+            margin="5px"
+          />
+        </Tooltip>
+      </Box>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <Center>
@@ -54,6 +67,7 @@ const DeleteNewsItem = (props) => {
             borderRadius="6px"
             width="300px"
             height="100x"
+            margin="30vh"
           >
             <ModalHeader>Delete {props.headline}</ModalHeader>
             <ModalCloseButton />
@@ -73,9 +87,16 @@ const DeleteNewsItem = (props) => {
                   type="text"
                   value={headlineInput}
                   onChange={headlineInputHandler}
+                  backgroundColor="#ECF8F8"
                 />
-                <Button type="submit">
-                  <DeleteIcon color="red" />
+                <Button background="none" marginLeft="80%" type="submit">
+                  <Tooltip label="Delete">
+                    <DeleteIcon
+                      _hover={{ cursor: "pointer" }}
+                      onClick={onOpen}
+                      color="red"
+                    />
+                  </Tooltip>
                 </Button>
               </form>
             </ModalBody>

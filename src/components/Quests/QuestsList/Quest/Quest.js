@@ -20,22 +20,34 @@ const Quest = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box backgroundColor="grey" margin="10px" overflow="scroll">
-      <Button onClick={onOpen}>{props.questName}</Button>
-      <Modal isOpen={isOpen} onClose={onClose}>
+    <Box margin="10px" overflow="scroll">
+      <Button backgroundColor="#EEE4E1" fontSize="18x" onClick={onOpen}>
+        {props.questName}
+      </Button>
+      <Modal isOpen={isOpen} onClose={onClose} width="100%">
         <ModalOverlay />
 
         {props.questId === "undefined" ? onClose() : null}
-        <ModalContent>
+        <ModalContent
+          height="60vh"
+          backgroundColor="#EEE4E1"
+          margin="140px"
+          padding="25px"
+        >
           <ModalHeader>{props.questName}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            <ListItem key={props.content}>{props.content}</ListItem>
+          <ModalBody backgroundColor="#ECF8F8">
+            <ListItem listStyleType="none" key={props.content}>
+              {props.content}
+            </ListItem>
           </ModalBody>
           <ModalFooter>
-            <ListItem key={props.userName}>{props.userName}</ListItem>
-            <ListItem key={props.created_at}>
-              {props.created_at.toString()}
+            <ListItem listStyleType="none" key={props.userName}>
+              Posted by: {props.userName}
+            </ListItem>
+            <ListItem listStyleType="none" key={props.created_at}>
+              Date Added:
+              {props.created_at}
             </ListItem>
             {auth.currentUser.uid === props.userId ? (
               <>

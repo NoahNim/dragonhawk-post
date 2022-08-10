@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import FirestoreContext from "../../store/firestore-context";
 import NewQuest from "./NewQuest/NewQuest";
 import QuestsList from "./QuestsList/QuestsList";
+import { auth } from "../../Firebase";
 
 const Quests = (props) => {
   const fireCtx = useContext(FirestoreContext);
@@ -24,10 +25,16 @@ const Quests = (props) => {
 
   return (
     <Box>
-      <Center>
-        <NewQuest createQuestItem={createQuestItem} />
+      <Center margin="5px">
+        {auth.currentUser.emailVerified ? (
+          <NewQuest createQuestItem={createQuestItem} />
+        ) : (
+          <Box>
+            <p>Please validate your email to post!</p>
+          </Box>
+        )}
       </Center>
-      <Center>
+      <Center height="88vh">
         <QuestsList quests={props.quests} />
       </Center>
     </Box>
