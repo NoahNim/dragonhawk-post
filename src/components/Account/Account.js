@@ -106,7 +106,7 @@ const Account = (props) => {
                   content={item.content}
                   userId={item.userId}
                   userName={item.userName}
-                  created_at={item.created_at.toDate()}
+                  created_at={item.created_at.toDate().toLocaleString()}
                 />
               </ListItem>
             ))}
