@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../../Firebase";
 import {
@@ -19,6 +19,7 @@ const ChangePassword = (props) => {
   const passwordReset = async () => {
     try {
       await sendPasswordResetEmail(auth, props.email).then(() => {
+        props.setEmailSent("Email Sent!");
         onClose();
       });
     } catch (error) {
@@ -36,7 +37,9 @@ const ChangePassword = (props) => {
           width="90px"
           height="20px"
         >
-          Change Password
+          {props.emailSent === "Email Sent!"
+            ? props.emailSent
+            : "Change Password"}
         </Button>
         <Modal isOpen={isOpen} onClose={onClose} backgroundColor="#A47449">
           <ModalOverlay />

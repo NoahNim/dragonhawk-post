@@ -24,11 +24,12 @@ const Home = () => {
   const [displayName, setDisplayName] = useState();
   const [newsState, setNewsState] = useState([]);
   const [questsState, setQuestsState] = useState([]);
+  const [emailSent, setEmailSent] = useState();
 
   useEffect(() => {
     const news = query(collection(db, "news"));
     const quests = query(collection(db, "quests"));
-    const newScribe = onSnapshot(
+    onSnapshot(
       news,
       (querySnapShot) => {
         setNewsState(querySnapShot?.docs.map((doc) => doc.data()));
@@ -37,7 +38,7 @@ const Home = () => {
         // ...
       }
     );
-    const questScribe = onSnapshot(
+    onSnapshot(
       quests,
       (querySnapShot) => {
         setQuestsState(querySnapShot?.docs.map((doc) => doc.data()));
@@ -64,6 +65,8 @@ const Home = () => {
 
   const logOutHandler = async (event) => {
     event.preventDefault();
+
+    setEmailSent();
     authCtx.logout();
   };
 
@@ -88,6 +91,8 @@ const Home = () => {
                   changeDisplayName={changeDisplayName}
                   quests={questsState}
                   news={newsState}
+                  emailSent={emailSent}
+                  setEmailSent={setEmailSent}
                 />
               </Center>
             </TabPanel>
