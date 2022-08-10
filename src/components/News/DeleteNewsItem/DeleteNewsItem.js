@@ -67,6 +67,7 @@ const DeleteNewsItem = (props) => {
             borderRadius="6px"
             width="300px"
             height="100x"
+            margin="30vh"
           >
             <ModalHeader>Delete {props.headline}</ModalHeader>
             <ModalCloseButton />
@@ -86,9 +87,16 @@ const DeleteNewsItem = (props) => {
                   type="text"
                   value={headlineInput}
                   onChange={headlineInputHandler}
+                  backgroundColor="#ECF8F8"
                 />
-                <Button type="submit">
-                  <DeleteIcon color="red" />
+                <Button background="none" marginLeft="80%" type="submit">
+                  <Tooltip label="Delete">
+                    <DeleteIcon
+                      _hover={{ cursor: "pointer" }}
+                      onClick={onOpen}
+                      color="red"
+                    />
+                  </Tooltip>
                 </Button>
               </form>
             </ModalBody>

@@ -5,12 +5,15 @@ import NewsPost from "./NewsPost/NewsPost";
 const NewsList = (props) => {
   return (
     <Box backgroundColor="#E7D8C9" width="100%" height="100%" padding="0">
-      <List marginLeft="15px" width="103.5%">
+      <List width="100%">
         <Flex
           flexDirection="row"
           flexFlow="wrap"
           flexWrap="row"
-          justifyContent="flex-start"
+          justifyContent={
+            props.news?.length > 9 ? "space-between" : "flex-start"
+          }
+          alignContent="center"
           padding="0"
         >
           {props?.news?.map((item) => (
