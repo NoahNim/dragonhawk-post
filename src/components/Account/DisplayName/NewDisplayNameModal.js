@@ -28,7 +28,7 @@ const NewDisplayNameModal = (props) => {
             />
           </Tooltip>
         </Box>
-        <Modal isOpen={isOpen} onClose={onClose} backgroundColor="#A47449">
+        <Modal isOpen={isOpen} onClose={onClose} backgroundColor="#90E0EF">
           <ModalOverlay />
           <Center>
             <ModalContent

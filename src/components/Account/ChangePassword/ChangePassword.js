@@ -41,10 +41,14 @@ const ChangePassword = (props) => {
             ? props.emailSent
             : "Change Password"}
         </Button>
-        <Modal isOpen={isOpen} onClose={onClose} backgroundColor="#A47449">
+        <Modal isOpen={isOpen} onClose={onClose} backgroundColor="#00B4D8">
           <ModalOverlay />
           <Center>
-            <ModalContent backgroundColor="#F1BF98" borderRadius="6px">
+            <ModalContent
+              backgroundColor="#00B4D8"
+              borderRadius="6px"
+              margin="300px"
+            >
               <Center></Center>
 
               <ModalCloseButton />
