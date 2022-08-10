@@ -90,7 +90,6 @@ export const AuthContextProvider = (props) => {
         setLoginState(true);
         setSignupError();
       });
-      console.log(auth.currentUser);
     } catch (error) {
       console.log(error);
       setSignupError(mapAuthCode(error.code));

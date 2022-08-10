@@ -7,6 +7,7 @@ import {
   Box,
   Center,
 } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
 
 const NewDisplayName = (props) => {
   const [displayNameInput, setDisplayNameInput] = useState("");
@@ -30,9 +31,10 @@ const NewDisplayName = (props) => {
       <Box
         display="flex"
         flexDirection="column"
-        backgroundColor="#A47449"
+        backgroundColor="#F1BF98"
         borderRadius="6px"
         padding="15px"
+        marginTop="30vh"
       >
         <Center>
           <form onSubmit={displayNameSubmitHandler}>
@@ -50,10 +52,10 @@ const NewDisplayName = (props) => {
               width="300px"
               borderRadius="6px"
               borderColor="black"
-              backgroundColor="#D9D0B4"
+              backgroundColor="#ECF8F8"
             />
-            <Button type="submit" margin="15px" backgroundColor="#5482F0">
-              Submit
+            <Button type="submit" margin="15px" background="none">
+              <>Set</> <AddIcon color="green" margin="10px" />
             </Button>
           </form>
         </Center>
