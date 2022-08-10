@@ -8,7 +8,9 @@ import {
   Box,
   Center,
   FormErrorMessage,
+  Tooltip,
 } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
 
 const NewQuestForm = (props) => {
   const [questNameInput, setQuestNameInput] = useState("");
@@ -66,7 +68,15 @@ const NewQuestForm = (props) => {
             value={contentInput}
             onChange={contentInputHandler}
           />
-          <Button type="submit">Post</Button>
+          <Button background="none" type="submit" marginLeft="80%">
+            <Tooltip label="Post">
+              <AddIcon
+                _hover={{ cursor: "pointer" }}
+                color="green"
+                margin="5px"
+              />
+            </Tooltip>
+          </Button>
         </form>
       </Box>
     </Center>

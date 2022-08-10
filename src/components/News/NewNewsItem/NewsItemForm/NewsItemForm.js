@@ -10,7 +10,7 @@ import {
   FormErrorMessage,
   Tooltip,
 } from "@chakra-ui/react";
-import { EditIcon } from "@chakra-ui/icons";
+import { AddIcon } from "@chakra-ui/icons";
 
 const NewsItemForm = (props) => {
   const [headlineInput, setHeadlineInput] = useState("");
@@ -73,10 +73,10 @@ const NewsItemForm = (props) => {
             backgroundColor="#ECF8F8"
           />
           <Button background="none" type="submit" marginLeft="80%">
-            <Tooltip label="Edit">
-              <EditIcon
+            <Tooltip label="Post">
+              <AddIcon
                 _hover={{ cursor: "pointer" }}
-                color="blue"
+                color="green"
                 margin="5px"
               />
             </Tooltip>

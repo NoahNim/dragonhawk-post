@@ -4,7 +4,7 @@ import Quest from "./Quest/Quest";
 
 const QuestsList = (props) => {
   return (
-    <Box backgroundColor="#E7D8C9" width="100%" height="100%" padding="0">
+    <Box backgroundColor="#0077B6" width="100%" height="100%" padding="0">
       <List>
         <Flex
           flexDirection="row"

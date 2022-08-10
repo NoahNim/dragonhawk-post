@@ -31,7 +31,7 @@ const Account = (props) => {
   }, [user, props]);
 
   return (
-    <Box margin="10px">
+    <Box margin="10px" width="100%" height="90vh" backgroundColor="#0077B6">
       <AccountInfo
         displayName={props.displayName}
         email={email}
@@ -64,54 +64,62 @@ const Account = (props) => {
       </Center>
 
       <Box
-        margin="10px"
-        width="300px"
-        backgroundColor="#E6BEAE"
-        borderRadius="6px"
-        padding="15px"
+        display="flex"
+        flexDirection="row"
+        width="100%"
+        alignContent="center"
+        justifyContent="center"
       >
-        <Center display="flex" flexDirection="column">
-          News Posted By You:
-          <List>
-            {userNews?.map((item) => (
-              <ListItem key={item.newsId}>
-                <NewsPost
-                  created_at={item.created_at.toDate().toLocaleString()}
-                  headline={item.headline}
-                  content={item.content}
-                  newsId={item.newsId}
-                  userName={item.userName}
-                  userId={item.userId}
-                />
-              </ListItem>
-            ))}
-          </List>
-        </Center>
-      </Box>
-      <Box
-        margin="10px"
-        width="300px"
-        backgroundColor="#E6BEAE"
-        borderRadius="6px"
-        padding="15px"
-      >
-        <Center display="flex" flexDirection="column">
-          Quests Posted By You:
-          <List>
-            {userQuests?.map((item) => (
-              <ListItem key={item.questId}>
-                <Quest
-                  questId={item.questId}
-                  questName={item.questName}
-                  content={item.content}
-                  userId={item.userId}
-                  userName={item.userName}
-                  created_at={item.created_at.toDate().toLocaleString()}
-                />
-              </ListItem>
-            ))}
-          </List>
-        </Center>
+        <Box
+          margin="10px"
+          width="40%"
+          backgroundColor="#00B4D8"
+          borderRadius="6px"
+          padding="15px"
+        >
+          <Center display="flex" flexDirection="column">
+            News Posted By You:
+            <List>
+              {userNews?.map((item) => (
+                <ListItem key={item.newsId}>
+                  <NewsPost
+                    created_at={item.created_at.toDate().toLocaleString()}
+                    headline={item.headline}
+                    content={item.content}
+                    newsId={item.newsId}
+                    userName={item.userName}
+                    userId={item.userId}
+                  />
+                </ListItem>
+              ))}
+            </List>
+          </Center>
+        </Box>
+        <Box
+          margin="10px"
+          width="40%"
+          backgroundColor="#00B4D8"
+          borderRadius="6px"
+          padding="15px"
+        >
+          <Center display="flex" flexDirection="column">
+            Quests Posted By You:
+            <List>
+              {userQuests?.map((item) => (
+                <ListItem key={item.questId}>
+                  <Quest
+                    questId={item.questId}
+                    questName={item.questName}
+                    content={item.content}
+                    userId={item.userId}
+                    userName={item.userName}
+                    created_at={item.created_at.toDate().toLocaleString()}
+                  />
+                </ListItem>
+              ))}
+            </List>
+          </Center>
+        </Box>
       </Box>
     </Box>
   );
