@@ -23,13 +23,11 @@ const Account = (props) => {
         props.setDisplayName(user.displayName);
         setEmail(user.email);
         setEmailVerified(user.emailVerified);
-        setUserNews(props.news.filter((news) => news.userId === user.uid));
-        setUserQuests(
-          props.quests.filter((quests) => quests.userId === user.uid)
-        );
       } else {
       }
     });
+    setUserNews(props.news.filter((news) => news.userId === user.uid));
+    setUserQuests(props.quests.filter((quests) => quests.userId === user.uid));
   }, [user, props]);
 
   return (
