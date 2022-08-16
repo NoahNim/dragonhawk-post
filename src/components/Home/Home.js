@@ -17,6 +17,7 @@ import Account from "../Account/Account";
 import NewDisplayName from "../Account/DisplayName/NewDisplayName";
 import News from "../News/News";
 import Quests from "../Quests/Quests";
+import Title from "../title/title";
 
 const Home = () => {
   const authCtx = useContext(AuthContext);
@@ -75,11 +76,31 @@ const Home = () => {
       {authCtx.displayNameState ? (
         <Tabs>
           <Center>
-            <TabList>
-              <Tab>Account</Tab>
-              <Tab>News</Tab>
-              <Tab>Quests</Tab>
-            </TabList>
+            <Box
+              marginRight="400px"
+              backgroundColor="#826041"
+              color="yellow"
+              borderRadius="5px"
+              width="7.57%"
+            >
+              <Title />
+            </Box>
+            <Center>
+              <TabList>
+                <Tab>Account</Tab>
+                <Tab>News</Tab>
+                <Tab>Quests</Tab>
+              </TabList>
+            </Center>
+            <Box
+              marginLeft="400px"
+              backgroundColor="#826041"
+              color="yellow"
+              borderRadius="5px"
+              width="7.57%"
+            >
+              <Title />
+            </Box>
           </Center>
           <TabPanels>
             <TabPanel>
