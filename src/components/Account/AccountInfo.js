@@ -9,7 +9,7 @@ const AccountInfo = (props) => {
       <Box>
         <b>Displaying Account Profile: {props?.displayName}</b>
       </Box>
-      <List backgroundColor="#00B4D8" borderRadius="6px" padding="15px">
+      <List backgroundColor="#C89D7C" borderRadius="6px" padding="15px">
         <ListItem margin="10px">
           <ListIcon as={EmailIcon} color="#e6dfd1" />
           Email: {props.email}

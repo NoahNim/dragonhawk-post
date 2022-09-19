@@ -4,7 +4,7 @@ import NewsPost from "./NewsPost/NewsPost";
 
 const NewsList = (props) => {
   return (
-    <Box backgroundColor="#0077B6" width="100%" height="100%" padding="0">
+    <Box width="100%" height="100%" padding="0">
       <List width="100%">
         <Flex
           flexDirection="row"

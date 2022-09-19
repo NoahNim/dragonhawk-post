@@ -76,15 +76,6 @@ const Home = () => {
       {authCtx.displayNameState ? (
         <Tabs>
           <Center>
-            <Box
-              marginRight="400px"
-              backgroundColor="#826041"
-              color="yellow"
-              borderRadius="5px"
-              width="7.57%"
-            >
-              <Title />
-            </Box>
             <Center>
               <TabList>
                 <Tab>Account</Tab>
@@ -92,15 +83,6 @@ const Home = () => {
                 <Tab>Quests</Tab>
               </TabList>
             </Center>
-            <Box
-              marginLeft="400px"
-              backgroundColor="#826041"
-              color="yellow"
-              borderRadius="5px"
-              width="7.57%"
-            >
-              <Title />
-            </Box>
           </Center>
           <TabPanels>
             <TabPanel>
