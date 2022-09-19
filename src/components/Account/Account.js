@@ -31,7 +31,7 @@ const Account = (props) => {
   }, [user, props]);
 
   return (
-    <Box margin="10px" width="100%" height="90vh" backgroundColor="#0077B6">
+    <Box margin="10px" width="100%" height="90vh">
       <AccountInfo
         displayName={props.displayName}
         email={email}
@@ -73,7 +73,7 @@ const Account = (props) => {
         <Box
           margin="10px"
           width="40%"
-          backgroundColor="#00B4D8"
+          backgroundColor="#C89D7C"
           borderRadius="6px"
           padding="15px"
         >
@@ -98,7 +98,7 @@ const Account = (props) => {
         <Box
           margin="10px"
           width="40%"
-          backgroundColor="#00B4D8"
+          backgroundColor="#C89D7C"
           borderRadius="6px"
           padding="15px"
         >
