@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import { db } from "../Firebase";
+import { db } from "../../Firebase";
 import {
   doc,
   setDoc,

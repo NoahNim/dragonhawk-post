@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Button, Box, Center, List, ListItem } from "@chakra-ui/react";
 import AuthContext from "../../store/auth-context";
 import AccountInfo from "./AccountInfo";
-import { auth } from "../../Firebase";
+import { auth } from "../../../Firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import ChangePassword from "./ChangePassword/ChangePassword";
 import DeleteAccount from "./DeleteAccount/DeleteAccount";

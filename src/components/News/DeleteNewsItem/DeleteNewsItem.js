@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import FirestoreContext from "../../../store/firestore-context";
-import { auth } from "../../../Firebase";
+import { auth } from "../../../../Firebase";
 
 const DeleteNewsItem = (props) => {
   const [headlineInput, setHeadlineInput] = useState("");

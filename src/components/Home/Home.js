@@ -10,7 +10,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { collection, onSnapshot, query } from "firebase/firestore/lite";
-import { db } from "../../Firebase";
+import { db } from "../../../Firebase";
 import AuthContext from "../../store/auth-context";
 import { updateProfile } from "firebase/auth";
 import Account from "../Account/Account";
