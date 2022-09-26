@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import EditNewsItem from "../../EditNewsItem/EditNewsItem";
 import DeleteNewsItem from "../../DeleteNewsItem/DeleteNewsItem";
-import { auth } from "../../../../../Firebase";
+import { auth } from "../../../../Firebase";
 
 const NewsPost = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();

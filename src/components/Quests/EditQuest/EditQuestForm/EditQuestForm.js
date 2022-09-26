@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import FirestoreContext from "../../../../store/firestore-context";
-import { auth } from "../../../../../Firebase";
+import { auth } from "../../../../Firebase";
 
 const EditQuestForm = (props) => {
   const [questNameInput, setQuestNameInput] = useState(props.questName);

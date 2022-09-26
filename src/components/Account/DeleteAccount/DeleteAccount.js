@@ -1,8 +1,7 @@
 import React, { useState, useContext } from "react";
 import { deleteUser } from "firebase/auth";
 import AuthContext from "../../../store/auth-context";
-import { auth } from "../../../../Firebase";
-
+import { auth } from "../../../Firebase";
 import {
   Modal,
   ModalOverlay,

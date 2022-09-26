@@ -13,7 +13,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import EditQuest from "../../EditQuest/EditQuest";
-import { auth } from "../../../../../Firebase";
+import { auth } from "../../../../Firebase";
 import DeleteQuest from "../../DeleteQuest/DeleteQuest";
 
 const Quest = (props) => {
